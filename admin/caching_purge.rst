@@ -1,14 +1,14 @@
 ﻿.. _caching-purge:
 
-第5章 Caching無効
+제 5 장 Caching 해제
 ******************
 
-この章では、Cachingされたコンテンツを無効にする方法について説明する。 業界用語でPurgeで通称が、様々な状況や環境により、細分化されたAPIが必要である。
+이 장에서는 Caching 된 콘텐츠를 해제하는 방법을 설명한다. 업계 용어로 Purge로 통칭가 다양한 상황이나 환경에 따라 세분화 된 API가 필요하다.
 
-ソースからキャッシュされたコンテンツは、 :ref:`caching-policy-ttl` に基づい更新周期を持つ。 しかし、明らかに内容が変更され、管理者がこれをすぐに反映したい場合 :ref:`caching-policy-ttl` が期限切れになるまで待つ必要はない。
-`Purge`_ / `Expire`_ / `HardPurge`_ などを使用すると、すぐにコンテンツを無効化させることができる。
+소스에서 캐시 된 콘텐츠는 :ref:`caching-policy-ttl` 에 따라 업데이트주기를 가진다. 하지만 확실히 내용이 변경되어 관리자가이를 즉시 적용하려면 :ref:`caching-policy-ttl` 이 만료 될 때까지 기다릴 필요는 없다.
+`Purge`_ / `Expire`_ / `HardPurge`_ 등을 사용하면 신속하게 콘텐츠를 무효화시킬 수있다.
 
-無効化APIは、単にブラウザによって呼び出される場合もあるが、自動化されている場合が多い。 例えばFTP経由でファイルのアップロードが完了したら、すぐに `Purge`_ を呼び出す式である。 管理者は、次のようにいくつかの動作に設定することができる。 ::
+비활성화 API는 단순히 브라우저에 의해 호출되는 경우도 있지만, 자동화되는 경우가 많다. 예를 들어 FTP를 통해 파일의 업로드가 완료되면 즉시 `Purge`_ 를 호출 식이다. 관리자는 다음과 같이 몇 가지 동작을 설정할 수있다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
@@ -17,56 +17,56 @@
    <RootPurgeExpire>ON</RootPurgeExpire>
    <ResCodeNoCtrlTarget>200</ResCodeNoCtrlTarget>
 
--  ``<Purge2Expire> (基本: NONE)``
+-  ``<Purge2Expire> (기본: NONE)``
 
-   `Purge`_ 要求を設定に応じて、 `Expire`_ で処理する。 たとえば、特定のパターン(*.jpg)を `Purge`_ する場合、意図せず、多くのコンテンツが削除され、ソースに過度な負荷を発生させることができる。 このような場合、 `Expire`_ に処理するように設定すると、過剰なソース負荷を防止することができる。
+   `Purge`_ 요구를 설정에 따라 `Expire`_ 처리한다. 예를 들어, 특정 패턴(*.jpg)을 `Purge`_ 하는 경우 의도하지 않게 많은 컨텐츠가 삭제되고 소스에 과도한 부하를 발생시킬 수있다. 이러한 경우 `Expire`_ 처리하도록 설정하면 과도한 소스 부하를 방지 할 수있다.
    
-   - ``NONE`` `Expire`_ で処理しない。
-   - ``ROOT`` ドメイン全体（/ * ）の `Purge`_ を `Expire`_ で処理する。
-   - ``PATTERN`` すべてのパターン `Purge`_ を `Expire`_ で処理する。
-   - ``ALL`` すべての `Purge`_ を `Expire`_ で処理する。
+   - ``NONE`` `Expire`_ 처리하지 않는다.
+   - ``ROOT`` 도메인 전체 (/ *)의 `Purge`_ 를 `Expire`_ 처리한다.
+   - ``PATTERN`` 모든 패턴 `Purge`_ 를 `Expire`_ 처리한다.
+   - ``ALL`` 모든 `Purge`_ 를 `Expire`_ で処理する。
 
--  ``<RootPurgeExpire> (基本: ON)``
+-  ``<RootPurgeExpire> (기본: ON)``
    
-   全体のコンテンツへの意図しない `Purge`_ / `Expire`_ は、過度の元のサーバーの負荷を発生させることができる。 この設定を介してすべてのコンテンツの `Purge`_ / `Expire`_ を遮断することができる。 この設定は、 ``<Purge2Expire>`` よりも優先します。
+   전체 콘텐츠에 대한 의도하지 않은 `Purge`_ / `Expire`_ 는 과도한 원래 서버의 부하를 발생시킬 수있다. 이 설정을 통해 모든 콘텐츠의 `Purge`_ / `Expire`_ 을 차단할 수있다. 이 설정은 ``<Purge2Expire>`` 보다 우선합니다.
    
-   - ``ON`` `Purge`_ / `Expire`_ を可能にする。
-   - ``PURGE`` `Purge`_ のみ可能にする。
-   - ``EXPIRE`` `Expire`_ のみ可能にする。
-   - ``OFF`` 모든 `Purge`_ / `Expire`_ を禁止する。
+   - ``ON`` `Purge`_ / `Expire`_ 을 가능하게한다.
+   - ``PURGE`` `Purge`_ 만 허용한다.
+   - ``EXPIRE`` `Expire`_ 만 허용한다.
+   - ``OFF`` 모든 `Purge`_ / `Expire`_ 을 금지한다.
 
--  ``<ResCodeNoCtrlTarget> (基本: 200)``
+-  ``<ResCodeNoCtrlTarget> (기본: 200)``
 
-   `Purge`_ , `Expire`_ , `HardPurge`_ , `ExpireAfter`_ の対象オブジェクトが存在しないときのHTTP応答コードを設定する。
+   `Purge`_ , `Expire`_ , `HardPurge`_ , `ExpireAfter`_ 의 대상 객체가 존재하지 않을 때의 HTTP 응답 코드를 설정한다.
    
 
-ターゲット設定は、URLは、パターン2つに表現する。 ::
+타겟팅은 URL 패턴 2 가지로 표현한다. ::
 
    example.com/logo.jpg      // URL
    example.com/img/          // URL
-   example.com/img/*.jpg     // パターン
-   example.com/img/*         // パターン
+   example.com/img/*.jpg     // 패턴
+   example.com/img/*         // 패턴
    
-明確なURLのほかのパターン(*.jpg)で無効化が可能である。 しかし、作業を実行するまで、ターゲット数を明確に知ることができない。 これは、ややもすると、管理者の意図とは異なるので、多くの対象を指定することができる。 これは、実際にCPUリソースをあまり消費することになり、システム全体に負担を与えることができる。
-   
-したがって、実サービスの中には明確なURLだけを使用することを強く推奨する。 パターン表現はサービスから排除された状態で、管理目的で使用するためである。
+명확한 URL을 다른 패턴 ( * .jpg)로 무효화가 가능하다. 그러나 작업을 수행 할 때까지 대상 수를 명확하게 알 수 없다. 이것은 자칫하면 관리자의 의도와는 다르기 때문에 많은 대상을 지정할 수있다. 이것은 실제로 CPU 리소스를 많이 소비하게 전체 시스템에 부담을 줄 수있다.
+
+따라서 실제 서비스에 명확한 URL 만 사용하는 것이 좋습니다한다. 패턴 표현은 서비스에서 배제 된 상태에서 관리 목적으로 사용하기 때문이다.
 
 
 .. note::
 
-   セキュリティ上の理由からexample.com/files/などの特定のディレクトリへのアクセスは、403 FORBIDDENなどで遮断される。 しかし、ルートディレクトリは、例外を持つ。 たとえば、ユーザーがexample.comにアクセスすると、ブラウザは、ルートディレクトリ（/）を要請する。 ::
+   보안상의 이유로 example.com/files/ 등의 특정 디렉토리에 액세스은 403 FORBIDDEN 등으로 차단된다. 그러나 루트 디렉토리는 예외를 가진다. 예를 들어, 사용자가 example.com에 액세스하면 브라우저는 루트 디렉토리 (/)를 요청한다. ::
    
       GET / HTTP/1.1
       Host: example.com
    
-   これに対して、Webサーバーは、管理者が設定したデフォルトのページ（おそらくindex.htmlまたはindex.htm）で応答する。 明らかに、Webサービスの構成では、ルートディレクトリ（/）は、ディレクトリではなくページで動作する。
+   이에 대해 Web Server는 관리자가 설정 한 기본 페이지 (아마 index.html 또는 index.htm)로 응답한다. 물론, Web 서비스의 구성은 루트 디렉토리 (/) 디렉토리가 아닌 페이지에서 동작한다.
+
+하지만 Cache 서버 루트 디렉토리 (/)에 접속했는데, 200 OK 페이지가 온 이해한다. 또한 원래 서버가 어떤 페이지를 응답 한 모른다. 간단하게 정리하면 Cache 서버의 관점에서는 디렉토리 표현도 URL의 일종에 불과하다. ::
    
-   しかし、Cacheサーバーは、ルートディレクトリ（/）にアクセスしたところ、200 OKのページが来た理解する。 さらに、元のサーバーがどのページを応答した知らない。 簡単に整理すると、Cacheサーバーの観点では、ディレクトリ表現もURLの一種に過ぎない。 ::
-   
-      example.com/img/          // example.com 仮想ホストの / img / に アクセスした 結果 のページ
-      example.com/              // example.com の仮想ホストの 基本 ページ （/）
-      example.com/img/*         // example.com 仮想ホストの / img ディレクトリと その サブ ページ
-      example.com/*             // example.com 仮想ホストの すべての コンテンツ
+      example.com/img/          // example.com 가상 호스트의 / img /를 방문한 결과 페이지
+      example.com/              // example.com의 가상 호스트의 기본 페이지 (/)
+      example.com/img/*         // example.com 가상 호스트의 / img 디렉토리 및 하위 페이지
+      example.com/*             // example.com example.com 가상 호스트의 모든 콘텐츠
          
 
 
@@ -79,11 +79,11 @@
 Purge
 ====================================
 
-ターゲットコンテンツを無効にさせて、元のサーバーからコンテンツを再ダウンロード受けるようにする。 Purge後最初のアクセス時に、元のサーバーからコンテンツを再キャッシュする。 もし元のサーバーに障害が発生してコンテンツを取得することができない場合は無効化され、コンテンツを復元させてサービスに障害がないように処理する。 このように復元されたコンテンツは、その時点からConnectTimeout設定だけ後ろに更新する。 ::
+대상 콘텐츠를 해제시켜 원래의 서버에서 콘텐츠를 다시 다운로드 받게한다. Purge 후 처음 액세스 할 때 원본 서버에서 콘텐츠를 다시 캐시한다. 만약 원래 서버에 장애가 발생하여 콘텐츠를 검색 할 수없는 경우에는 비활성화 된 콘텐츠를 복원시켜 서비스에 장애가 없도록 처리한다. 이렇게 복원 된 콘텐츠는 해당 시점에서 ConnectTimeout 설정 만 뒤에 업데이트한다. ::
 
     http://127.0.0.1:10040/command/purge?url=...
     
-ターゲットコンテンツは、URLは、パターンとして指定することができるだけでなく、 "|"（Vertical Bar）を区切り文字を使用して、複数のドメインに複数のターゲットを指定することができる。 もしドメイン名が省略された場合、最近使用されたドメインを使用する。 ::
+대상 콘텐츠는 URL 패턴으로 지정할 수있을뿐만 아니라, "|"(Vertical Bar)를 구분 기호를 사용하여 여러 도메인에 여러 대상을 지정할 수있다. 만약 도메인 이름이 생략 된 경우, 최근 사용 된 도메인을 사용한다. ::
 
     http://127.0.0.1:10040/command/purge?url=http://www.site1.com/image.jpg
     http://127.0.0.1:10040/command/purge?url=www.site1.com/image.jpg
@@ -92,7 +92,7 @@ Purge
     http://127.0.0.1:10040/command/purge?url=www.site1.com/image1.jpg|/css/style.css|/script.js
     http://127.0.0.1:10040/command/purge?url=www.site1.com/image1.jpg|www.site2.com/page/*.html
     
-結果は、JSON形式で提供される。 ターゲットコンテンツ数/容量と処理時間（単位：ms）が明示される。 すでにPurgeされたコンテンツは、再びPurgeされない。 ::
+결과는 JSON 형식으로 제공된다. 대상 콘텐츠 수 / 용량과 처리 시간 (단위 : ms)이 명시된다. 이미 Purge 된 내용은 다시 Purge되지 않는다. ::
 
     {
         "version": "2.0.0",
@@ -101,12 +101,12 @@ Purge
         "result": { "Count": 24, "Size": 3747491, "Time": 12 }
     }
     
-``<Purge2Expire>`` を介して特定の条件のPurgeをExpireで動作するように設定することができる。 結果のない応答には、 ``<ResCodeNoCtrlTarget>`` でHTTP応答コードを設定することができる。
+``<Purge2Expire>`` 을 통해 특정 조건의 Purge를 Expire에서 작동하도록 설정할 수있다. 결과없는 응답에는 ``<ResCodeNoCtrlTarget>`` 에서 HTTP 응답 코드를 설정할 수있다.
 
 
 .. note::
    
-   ソースサーバーが障害のためにすべて排除された場合、コンテンツを更新することができないため、Purgeが動作しない。
+   원본 서버가 장애로 인해 모두 제거 된 경우 콘텐츠를 업데이트 할 수 없기 때문에 Purge가 작동하지 않습니다.
    
 
 .. _api-cmd-expire:
@@ -114,11 +114,11 @@ Purge
 Expire
 ====================================
 
-ターゲットコンテンツのTTLをすぐに期限切れにさせる。 Expire後最初のアクセス時に、元のサーバーから変更するかどうかを確認する。 変更されていない場合TTL延長があるだけコンテンツのダウンロードは発生しない ::
+대상 콘텐츠의 TTL을 즉시 만료시킨다. Expire 후 처음 액세스 할 때 원본 서버에서 변경 여부를 확인한다. 변경되지 않은 경우 TTL 연장이있는만큼 콘텐츠의 다운로드가 발생하지 ::
 
     http://127.0.0.1:10040/command/expire?url=...
     
-その他のすべての動作は、 `Purge`_ と同じである。
+다른 모든 동작은 `Purge`_ 과 같다.
 
 
 .. _api-cmd-expireafter:
@@ -126,17 +126,16 @@ Expire
 ExpireAfter
 ====================================
 
-ターゲットコンテンツのTTL有効期限を現在の（API呼び出し時点）から入力された時間（秒）だけ後ろに設定する。 ExpireAfterに有効期限を繰り上げて、コンテンツをより迅速に更新したり、逆に有効期限を増やしソースサーバーの負荷を軽減することができる。 ::
+대상 콘텐츠의 TTL 유효 기간을 현재 (API 호출 시점)에서 입력 된 시간 (초) 만 뒤에 설정한다. ExpireAfter 만료 앞당겨 콘텐츠를보다 신속하게 업데이트하거나 반대로 유효 기간을 늘려 소스 서버의 부하를 줄일 수있다. ::
 
    http://127.0.0.1:10040/command/expireafter?sec=86400&url=...
 
-関数呼び出しの仕様は、 `Purge`_ / `Expire`_ と似ているがsecパラメータ（単位：秒）を使用してTTLの有効期限を指定することができる。 secが省略場合、デフォルト値は1日（86400秒）に設定され、0を入力した場合に失敗する。 結果は、 `Purge`_ / `Expire`_ と同じですが、元のサーバーの障害の有無にかかわらず、動作します。 結果のない応答には、 ``<ResCodeNoCtrlTarget>`` でHTTP応答コードを設定することができる。
+함수 호출의 사양은 `Purge`_ / `Expire`_ 와 비슷하지만 sec 매개 변수 (단위 : 초)를 사용하여 TTL 만료를 지정할 수있다. sec를 생략하면 기본값은 1 일 (86400 초)으로 설정되고 0을 입력하면 실패한다. 결과는 `Purge`_ / `Expire`_ 과 같지만 원래 서버의 장애의 유무에 관계없이 작동합니다. 결과없는 응답에는 ``<ResCodeNoCtrlTarget>`` 에서 HTTP 응답 코드를 설정할 수있다.
 
 .. note::
-   ExpireAfterはキャッシュされているコンテンツの現在の有効期限だけを設定するだけでカスタムTTLや設定されたデフォルトのTTLを変更させるAPIはない。 ExpireAfter呼び出しの後、キャッシュされたコンテンツは、影響を受けない。
-   
-   
-   urlパラメータを先に入力した場合、secパラメータがurlパラメータのQueryStringとして認識されることができる。 したがって、secパラメータが最初に入力されていることが安全である。
+   ExpireAfter는 캐시 된 콘텐츠의 현재 유효 기간 만 설정하면 사용자 TTL과 설정된 기본 TTL을 변경하는 API는 없다. ExpireAfter 호출하면 캐시 된 콘텐츠는 영향을받지 않는다.
+
+url 매개 변수를 먼저 입력 한 경우 sec 매개 변수 url 매개 변수의 QueryString으로 인식 될 수있다. 따라서 sec 매개 변수를 먼저 입력되어있는 것이 안전하다.
    
    
 
@@ -145,15 +144,15 @@ ExpireAfter
 HardPurge
 ====================================
 
-`Purge`_ / `Expire`_ / `ExpireAfter`_ 以上のAPIは、元のサーバーの障害状況でもコンテンツが消えずに正常に動作します。 しかし、HardPurgeは、コンテンツの完全な削除を意味する。 HardPurgeは最も強力な削除方法が、削除されたコンテンツは、元のサーバーに障害が発生しても復帰できない。 結果のない応答には、 ``<ResCodeNoCtrlTarget>`` でHTTP応答コードを設定することができる。 ::
+`Purge`_ / `Expire`_ / `ExpireAfter`_ 이상의 API는 원래 서버의 장애 상황에서도 콘텐츠가 사라지지 않고 제대로 작동합니다. 그러나 HardPurge 콘텐츠의 완전한 제거를 의미한다. HardPurge 가장 강력한 제거 방법이 삭제 된 콘텐츠는 원래 서버에 장애가 발생해도 복귀 할 수 없다. 결과없는 응답에는 ``<ResCodeNoCtrlTarget>`` 에서 HTTP 응답 코드를 설정할 수있다. ::
 
     http://127.0.0.1:10040/command/hardpurge?url=...
 
 
-Purgeのデフォルトの動作
+Purge의 기본 동작
 ====================================
 
-Purge APIが呼び出されると、コンテンツの回復するかどうかを選択する。 ::
+Purge API를 호출하면 콘텐츠의 회복 여부를 선택한다. ::
 
    # server.xml - <Server><Cache>
    
@@ -161,28 +160,28 @@ Purge APIが呼び出されると、コンテンツの回復するかどうか�
       
 -  ``<Purge>`` 
    
-   - ``Normal (基本)`` `Purge`_ で動作する。 (元の障害時復旧する)
+   - ``Normal (기본)`` `Purge`_ で動作する。 에서 동작한다. (원래 재해 복구)
    
-   - ``Hard`` `HardPurge`_ で動作する。 (元の障害時復旧していない)
+   - ``Hard`` `HardPurge`_ 에서 동작한다. (원래 재해 복구되지 않음)
 
 
 HTTP Method
 ====================================
 
-無効化APIを拡張HTTP Methodで呼び出すことができます。 ::
+비활성화 API를 확장 HTTP Method를 호출 할 수 있습니다. ::
 
     PURGE /sample.dat HTTP/1.1
     host: ston.winesoft.co.kr
     
-HTTP Methodは、基本的にManagerのポートとサービス（80）ポートで動作します。 サービスポートに要求されるHTTP Methodの :ref:`env-host` で設定する。
+HTTP Method는 기본적으로 Manager 포트와 서비스 (80) 포트로 동작합니다. 서비스 포트에 요구되는 HTTP Method의 :ref:`env-host` 에서 설정한다.
 
 
 .. _api-etc-post:
 
-POST規格
+POST 규격
 ====================================
 
-無効化APIを次のようにPOSTで呼び出すことができます。 ::
+비활성화 API를 다음과 같이 POST로 호출 할 수 있습니다. ::
 
    POST /command/purge HTTP/1.1
    Content-Length: 37

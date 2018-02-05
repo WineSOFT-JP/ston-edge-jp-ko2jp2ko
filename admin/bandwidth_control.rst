@@ -1,34 +1,34 @@
 ﻿.. _bandwidth_control:
 
-第16章 Bandwidth
+제 16 장 Bandwidth 
 ******************
 
-この章では、仮想ホストごとに、さまざまな方式のBandwidth制限（調節）する方法について説明する。 かつてはBandwidthが一定レベルを超えないように制限することが目的であった。 今効果的にBandwidthを調節することで、その概念が移っていった。 さらに、コンテンツをリアルタイムで分析し、それぞれに最適化されたBandwidthを使用するように設定することができる。
+이 장에서는 가상 호스트마다 다양한 방식의 Bandwidth 제한 (조절)하는 방법을 설명한다. 일단 Bandwidth가 일정 수준을 넘지 않도록 제한하는 것이 목적이었다. 지금 효과적으로 Bandwidth를 조절함으로써 그 개념이 옮겨 갔다. 또한 콘텐츠를 실시간으로 분석하여 각각에 최적화 된 Bandwidth를 사용하도록 설정할 수있다.
 
 
 .. toctree::
    :maxdepth: 2
 
-仮想ホストBandwidth制限
+가상 호스트 Bandwidth 제한
 ====================================
 
-仮想ホストの最大Bandwidthを制限する。 これは最も優先する物理的な方法である。 ::
+가상 호스트의 최대 Bandwidth를 제한한다. 이것은 가장 선호하는 물리적 인 방법이다. ::
 
    # server.xml - <Server><VHostDefault><Options>
    # vhosts.xml - <Vhosts><Vhost><Options>
 
    <TrafficCap Session="0">0</TrafficCap>
 
--  ``<TrafficCap> (基本: 0 Mbps)``
-   の仮想ホストの最大BandwidthをMbps単位で設定する。 0に設定すると、Bandwidthを制限しない。
-   ``Session (基本: 0 Kbps)`` 属性は、クライアントセッションごとに送信することができる最大のBandwidthを設定する。
+-  ``<TrafficCap> (기본: 0 Mbps)``
+    의 가상 호스트의 최대 Bandwidth를 Mbps 단위로 설정한다. 0으로 설정하면 Bandwidth를 제한하지 않는다.
+   ``Session (기본: 0 Kbps)`` 속성은 클라이언트 세션 당 보낼 수있는 최대의 Bandwidth를 설정한다.
 
-例えば、 ``<TrafficCap>`` を50（Mbps）に設定した場合は50Mbps NICをインストールしたのと同じ効果を出す。 仮想ホストにアクセスするすべてのクライアントBandwidthの合計は50Mbpsを超えることができない。
+예를 들어, ``<TrafficCap>`` 50 (Mbps)로 설정 한 경우 50Mbps NIC를 설치 한 것과 같은 효과를 낸다. 가상 호스트에 액세스하는 모든 클라이언트 Bandwidth 총 50Mbps를 초과 할 수 없다.
 
-``Session`` は、次のように動作する
+``Session`` 은 다음과 같이 작동
 
-1. ``Session`` が設定されていても、すべてのクライアントBandwidthの合計は ``<TrafficCap>`` を超えることができない。
-2. `Bandwidth Throttling`_ を設定しても、クライアントセッションの最大速度は、 ``Session`` を超えることができない。
+1. ``Session`` 이 설정되어 있어도 모든 클라이언트 Bandwidth의 합계는 ``<TrafficCap>`` 을 초과 할 수 없다.
+2. `Bandwidth Throttling`_ 을 설정해도 클라이언트 세션의 최대 속도는 ``Session`` 을 초과 할 수 없다.
 
 
 .. _bandwidth-control-bt:
@@ -36,19 +36,19 @@
 Bandwidth Throttling
 ====================================
 
-BT（Bandwidth Throttling）と（各セッションごとに）クライアントの転送帯域幅を動的に調整する機能である。 一般的なメディアファイルの内部には、次のようにヘッダ、V（Video）、A（Audio）で構成されている。
+BT (Bandwidth Throttling)과 (각 세션 당) 클라이언트의 전송 대역폭을 동적으로 조정하는 기능이다. 일반적인 미디어 파일 내부에는 다음과 같이 헤더, V (Video), A (Audio)로 구성되어있다.
 
 .. figure:: img/conf_media_av.png
    :align: center
 
-   ヘッダは、BTの対象ではない。
+   헤더는 BT의 대상이 아니다.
 
-ヘッダは、再生時間が長いKey Frame周期が短いほど大きくなる。 したがって、認識することができるメディアファイルであれば、円滑な再生のために、ヘッダーは、帯域幅制限なしで送信する。 次の図のようにヘッダが完全に転送された後、BTが開始される。
+헤더는 재생 시간이 긴 Key Frame주기가 짧을수록 커진다. 따라서 인식 할 수있는 미디어 파일이면 원활한 재생을 위해 헤더는 대역폭 제한없이 전송한다. 다음 그림과 같이 헤더가 완전히 전송 된 후 BT가 시작된다.
 
 .. figure:: img/conf_bandwidththrottling2.png
    :align: center
 
-   動作シナリオ
+   동작 시나리오
 
 ::
 
@@ -64,68 +64,68 @@ BT（Bandwidth Throttling）と（各セッションごとに）クライアン�
       <Throttling>OFF</Throttling>
    </BandwidthThrottling>
 
-``<BandwidthThrottling>`` タグの下位に、デフォルトの動作を設定する。
+``<BandwidthThrottling>`` 태그의 하위에 기본 동작을 설정한다.
 
 -  ``<Settings>``
 
-   デフォルトの動作を設定する。
+   기본 동작을 설정한다.
 
    -  ``<Bandwidth> (基本: 1000 Kbps)``
-      クライアントの転送帯域幅を設定する。
-      ``Unit`` プロパティを介して基本単位( ``kbps`` , ``mbps`` , ``bytes`` , ``kb`` , ``mb`` )を設定する。
+      클라이언트의 전송 대역폭을 설정한다. 
+      ``Unit`` 속성을 통해 기본 단위位( ``kbps`` , ``mbps`` , ``bytes`` , ``kb`` , ``mb`` )를 설정한다.
 
-   -  ``<Ratio> (基本: 100 %)``
-      ``<Bandwidth>`` 設定の率を反映して、帯域幅を設定する。
+   -  ``<Ratio> (기본: 100 %)``
+      ``<Bandwidth>`` 설정 비율을 반영하여 대역폭을 설정한다.
 
-   -  ``<Boost> (基本: 5 초)``
-      一定時間だけのデータを速度制限なしのクライアントに送信する。 データの量は、 ``<Boost>`` X ``<Bandwidth>`` X ``<Ratio>`` 公式で計算する。
+   -  ``<Boost> (기본: 5 초)``
+      일정 시간 만 데이터를 속도 제한없이 클라이언트로 전송한다. 데이터의 양은 ``<Boost>`` X ``<Bandwidth>`` X ``<Ratio>`` 공식 계산한다.
 
 -  ``<Throttling>``
 
-   -  ``OFF (基本)`` BTを適用しない。
-   -  ``ON`` 条件リストと一致するとBTを適用する。
+   -  ``OFF (기본)`` BT를 적용하지 아니한다.
+   -  ``ON`` 조건 목록과 일치하면 BT를 적용한다.
 
 
-Bandwidth Throttling条件リスト
+Bandwidth Throttling 조건 목록
 --------------------------
 
-BTの条件のリストを設定する。 条件のリストと一致する必要がBTが適用される。 設定された順序で条件と一致する検査である。 トランスポートポリシーは、/ svc / {仮想ホスト名} /throttling.txtに設定する。 ::
+BT의 조건 목록을 설정한다. 조건 목록과 일치해야 BT가 적용된다. 설정된 순서대로 조건과 일치하는 검사이다. 전송 정책 / svc / {가상 호스트 이름} /throttling.txt로 설정한다. ::
 
    # /svc/www.example.com/throttling.txt
-   # 区切り文字はカンマ（、）であり、{条件}、{Bandwidth},{Ratio},{Boost} 順に表記する。
-   # {条件}を除くすべてのフィールドは省略可能である。
-   # 省略されたフィールドは、 ``<Settings>`` に設定されたデフォルト値が使用される。
-   # すべての条件式はacl.txt設定と同じである。
-   # {Bandwidth} 単位は ``<Settings>`` ``<Bandwidth>`` の  ``Unit`` 属性を使用する。
+   # 구분 기호는 쉼표 (,)이며, {조건}, {Bandwidth}, {Ratio}, {Boost} 순으로 표기한다.
+   # {조건}를 제외한 모든 필드는 선택 사항이다.
+   # 생략 된 필드는 ``<Settings>`` 에 설정된 기본값이 사용된다.
+   # 모든 조건식은 acl.txt 설정과 동일하다.
+   # {Bandwidth} 단위는 ``<Settings>`` ``<Bandwidth>`` 의 ``Unit`` 속성을 사용한다.
 
-   # 3秒のデータを速度制限なしで送信した後、3Mbps（3000Kbps = 2000Kbps X 150％）で、クライアントに送信する。
+   # 3 초의 데이터 속도 제한없이 전송 한 후 3Mbps（3000Kbps = 2000Kbps X 150％）에서 클라이언트로 전송한다.
    $IP[192.168.1.1], 2000, 150, 3
 
-   # bandwidthのみを定義する。  5（基本）秒のデータを速度制限なしで送信した後、800 Kbpsで、クライアントに送信する。
+   # bandwidth만을 정의한다.  5 (기본) 초 데이터 속도 제한없이 전송 한 후 800 Kbps에서 클라이언트로 전송한다.
    !HEADER[referer], 800
 
-   # boostのみを定義する。  10秒のデータを速度制限なしで送信した後、1000 Kbpsに、クライアントに送信する。
+   # boost만을 정의한다.  10 초 데이터 속도 제한없이 전송 한 후 1000 Kbps 클라이언트로 전송한다.
    HEADER[cookie], , , 10
 
-   # 拡張子がm4aの場合BTを適用しない。
+   # 확장자가 m4a의 경우 BT를 적용하지 아니한다.
    $URL[*.m4a], no
 
-メディアファイル（MP4、M4A、MP3）を分析すると、Encoding RateからBandwidthを得ることができる。 アクセスされるコンテンツの拡張子は必ず.mp4、.m4a、.mp3のいずれかでなければならない。 動的にBandwidthを抽出するには、次のようにBandwidth後ろ **x** を付ける。 ::
+미디어 파일 (MP4, M4A, MP3)를 분석하면 Encoding Rate에서 Bandwidth를 얻을 수있다. 액세스되는 콘텐츠의 확장자는 .mp4, .m4a, .mp3 중 하나이어야한다. 동적으로 Bandwidth를 추출하려면 다음과 같이 Bandwidth 뒤에 x를 붙인다. ::
 
-   # /vod/*.mp4 ファイルへのアクセスであれば、bandwidthを求める。 入手できない場合は、 1000を bandwidthbandwidthに使用する。
+   # /vod/*.mp4 파일에 액세스하면, bandwidth를 요구한다.  사용할 수없는 경우는 1000 bandwidthbandwidth에 사용한다.
    $URL[/vod/*.mp4], 1000x, 120, 5
 
-   # user-agentヘッダがない場合は、 bandwidthを求める。 入手できない場合は、 500をbandwidthに使用する。
+   # user-agent 헤더가없는 경우는 bandwidth를 요구한다.  사용할 수없는 경우, 500 bandwidth 사용한다.
    !HEADER[user-agent], 500x
 
-   # /low_quality/* ファイルへのアクセスであれば、bandwidthを求める。 入手できない場合は、デフォルト値をbandwidthに使用する。
+   # /low_quality/* 파일에 액세스하면, bandwidth를 요구한다.  사용할 수없는 경우 기본값을 bandwidth 사용한다.
    $URL[/low_quality/*], x, 200
 
 
-QueryString優先条件
+QueryString 환경 설정
 --------------------------
 
-約束されたQueryStringを使用して ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` を動的に設定する。 この設定は、BTの条件よりも優先される。
+약속 된 QueryString을 사용하여 ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` 를 동적으로 설정한다. 이 설정은 BT의 조건보다 우선된다.
 
 ::
 
@@ -141,34 +141,34 @@ QueryString優先条件
       <Throttling QueryString="ON">ON</Throttling>
    </BandwidthThrottling>
 
--  ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` の ``Param``
+-  ``<Bandwidth>`` , ``<Ratio>`` , ``<Boost>`` 의 ``Param``
 
-    それぞれの意味に合わせてQueryStringキーを設定する。
+    각각의 의미에 맞게 QueryString 키를 설정한다.
 
--  ``<Throttling>`` の ``QueryString``
+-  ``<Throttling>`` 의 ``QueryString``
 
-   - ``OFF (基本)`` QueryStringに条件を再定義していない。
+   - ``OFF (기본)`` QueryString 조건을 다시 정의하지 않습니다.
 
-   - ``ON`` QueryStringに条件を再定義する。
+   - ``ON`` QueryString 조건을 다시 정의한다.
 
-上記のように設定されている場合は、次のように、クライアントが要求されたURLに基づいてBTが動的に設定される。 ::
+위와 같이 설정되어있는 경우는 다음과 같이 클라이언트가 요청한 URL을 기반으로 BT가 동적으로 설정된다. ::
 
-    # 10秒のデータを速度制限なしで送信した後、1.3Mbps（1mbps X 130％）で、クライアントに送信する。
+    # 10 초의 데이터를 속도 제한없이 전송 한 후 1.3Mbps (1mbps X 130 %)에서 클라이언트로 전송한다.
     http://www.winesoft.co.kr/video/sample.wmv?myboost=10&mybandwidth=1&myratio=130
 
-必ずしもすべてのパラメータを指定する必要はない。::
+반드시 모든 매개 변수를 지정할 필요는 없다.::
 
     http://www.winesoft.co.kr/video/sample.wmv?myratio=150
 
-上記のように、いくつかの条件が省略された場合、残りの条件（ここではbandwidth、boost）を決定するために条件のリストを検索する。 ここでも、適切な条件が見つからない場合 ``<Settings>`` に設定されたデフォルト値が使用される。 QueryStringが、いくつかの存在も条件の一覧で、配達オプション（no）が設定されている場合は、BTの適用されない。
+위와 같이 몇 가지 조건이 생략 된 경우 나머지 조건 (여기에서는 bandwidth, boost)를 결정하는 조건의 목록을 검색한다. 여기에서도 적절한 조건을 찾을 수 없으면 ``<Settings>`` 에 설정된 기본값이 사용된다. QueryString이 일부 존재도 조건 목록에서 배달 옵션 (no)으로 설정되어있는 경우 BT는 적용되지 않는다.
 
-QueryStringを使用するので、ややもすると :ref:`caching-policy-applyquerystring` と混同を引き起こす恐れがある。
-:ref:`caching-policy-applyquerystring` が ``ON`` の場合、クライアントが要求されたURLのQueryStringがすべて認識されますが ``BoostParam`` , ``BandwidthParam`` , ``RatioParam`` は除外される。 ::
+QueryString을 사용하기 때문에 자칫하면 :ref:`caching-policy-applyquerystring` 과 혼동을 일으킬 우려가있다.
+:ref:`caching-policy-applyquerystring` 이 ``ON`` 의 경우 클라이언트가 요청 된 URL의 QueryString이 모든 인식되지만 ``BoostParam`` , ``BandwidthParam`` , ``RatioParam`` 은 제외된다. ::
 
    GET /video.mp4?mybandwidth=2000&myratio=130&myboost=10
    GET /video.mp4?tag=3277&myboost=10&date=20130726
 
-例えば、上記のような入力は、BTを決定する使わだけCaching-Keyを生成したり、元のサーバーに要求を送信する場合は削除される。 つまり、それぞれ次のように認識される。 ::
+예를 들어, 위와 같은 입력은 BT를 결정하는 사용 만 Caching-Key를 생성하거나 원래 서버로 요청을 보내는 경우는 삭제된다. 즉, 각각 다음과 같이 인식된다. ::
 
     GET /video.mp4
     GET /video.mp4?tag=3277&date=20130726

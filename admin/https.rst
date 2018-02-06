@@ -1,9 +1,9 @@
 .. _https:
 
-第9章 HTTPS
+제 9 장 HTTPS
 ******************
 
-この章では、HTTPSの構成について説明する。 TLS 1.2をサポートし、SSL 2.0は、セキュリティ上の理由から、アップグレードのみを許可する。 HTTPSは、クライアントとSTON区間でのみ使用される。 STONは、元のサーバーとHTTPSで通信していない。 なぜなら、セキュリティ的にも性能的にSTONがHTTPSを中継することは適切でないからである。 もし元のサーバーと、必ずHTTPSで通信が必要な場合 :ref:`bypass-port` を推奨する。
+이 장에서는 HTTPS 구성에 대해 설명한다. TLS 1.2을 지원하고 SSL 2.0은 보안상의 이유로 업그레이드 만 허용한다. HTTPS는 클라이언트와 STON 구간에서만 사용된다. STON 원래 서버와 HTTPS 통신하고 있지 않다. 왜냐하면 보안 적으로도 성능으로 STON가 HTTPS를 중계하는 것은 적절하지 않기 때문이다. 만약 원래 서버와 항상 HTTPS 통신이 필요한 경우 :ref:`bypass-port` 를 권장한다.
 
 
 .. toctree::
@@ -11,11 +11,10 @@
 
 
 
-サービスの構成
+서비스 구성
 ====================================
 
-別のIPアドレスまたはポートを指定しない場合、デフォルトでバインドされているサービスアドレスは、 "*:443"である。
-グローバル設定（server.xml）に設定する。 ::
+다른 IP 주소 나 포트를 지정하지 않으면 기본적으로 바인딩 된 서비스 주소는 " * 443"이다. 전역 설정 (server.xml)로 설정한다. ::
 
    # server.xml - <Server>
 
@@ -37,48 +36,48 @@
       <CA>/usr/ssl_port886/CA.pem</CA>
    </Https>
 
--  ``<Https>`` HTTPSを構成する。
+-  ``<Https>`` HTTPS를 구성한다.
 
-   -  ``<Cert>`` サーバー証明書
+   -  ``<Cert>`` 서버 인증서
 
-   -  ``<Key>`` サーバ証明書の秘密鍵。 暗号化された形式はサポートしていない。
+   -  ``<Key>`` 서버 인증서의 개인 키. 암호화 된 형식은 지원하지 않는다.
 
-   -  ``<CA>`` CA(Certificate Authority) チェーンの証明書
+   -  ``<CA>`` CA(Certificate Authority) 체인의 인증서
 
-同じPortをサービスしても、より明確な表現が優先する。
+같은 Port를 서비스하고 더욱 명확한 표현이 우선한다.
 
-たとえば、上記のNICが3個で、それぞれのIPアドレスが1.1.1.1、1.1.1.2、1.1.1.3である場合を想定してみよう。 1.1.1.1:443に接続したクライアントは、最も明示的な表現である2番目（<Https Listen = "1.1.1.1:443">）証明書にサービスされる。 一方、1.1.1.3:443に接続したクライアントは、IPが一致する1番目（<Https>、Listen = " * ：443"属性が省略されている）証明書にサービスされる。 証明書ファイルを同じ名前で上書きしてもReloadするときに反映される。
+예를 들어, 위의 NIC가 3 개에 각각의 IP 주소가 1.1.1.1,1.1.1.2,1.1.1.3 인 경우를 가정 해 보자. 1.1.1.1:443에 연결 한 클라이언트는 가장 명시적인 표현 인 두 번째 (<Https Listen = "1.1.1.1:443">) 인증서에 서비스된다. 한편 1.1.1.3 : 443에 연결 한 클라이언트는 IP가 일치하는 첫 번째 (<Https> Listen = "* 443"속성이 생략 된) 인증서에 서비스된다. 인증서 파일을 같은 이름으로 덮어도 Reload 때 반영된다.
 
 .. note::
 
-   証明書のフォーマットは、PEM（Privacy Enhanced Mail）、非対称キーアルゴリズムは、RSAのみをサポートする。
+   인증서의 형식은 PEM (Privacy Enhanced Mail), 비대칭 키 알고리즘은 RSA 만 지원한다.
 
 
 .. _https-aes-ni:
 
-SSL / TLS加速
+SSL / TLS 가속
 ====================================
 
-CPU（AES-NI）を介してSSL / TLSを加速する。 AES-NIをサポートしているCPUである場合、SSL / TLSでAESアルゴリズムを優先的に使用するように動作する。 AES-NIが認識された場合は、次のようにInfo.logに記録される。 ::
+CPU (AES-NI)를 통해 SSL / TLS를 가속한다. AES-NI를 지원하는 CPU 인 경우 SSL / TLS에서 AES 알고리즘을 우선적으로 사용하도록 동작한다. AES-NI가 인식 된 경우에는 다음과 같이 Info.log에 기록된다. ::
 
    AES-NI : ON (SSL/TLS accelerated)
 
-管理者は、AES-NIを使用するかどうかを選択することができる。 ::
+관리자는 AES-NI를 사용할지 여부를 선택할 수있다. ::
 
    # server.xml - <Server><Cache>
 
    <AES-NI>ON</AES-NI>
 
--  ``<AES-NI> (基本: ON)`` AES-NIを使用するかどうかを選択する。
+-  ``<AES-NI> (기본: ON)`` AES-NI를 사용할지 여부를 선택한다.
 
 
 
 .. _https-ciphersuite:
 
-CipherSuiteを選択
+CipherSuite를 선택
 ====================================
 
-サポートしているCipherSuitesは以下の通りである。
+지원하는 CipherSuites는 다음과 같다.
 
 ================================================ ======== =========== =======
 Cipher Suite                                     TLS1.2   TLS1.1/1.0  SSL3.0
@@ -100,7 +99,7 @@ TLS_RSA_WITH_RC4_128_SHA (0x0005)                                     O
 TLS_RSA_WITH_RC4_128_MD5 (0x0004)                                     O
 ================================================ ======== =========== =======
 
-``<Https>`` の ``CipherSuite`` 属性を使用すると、使用CipherSuiteを設定することができる。 ::
+``<Https>`` 의 ``CipherSuite`` 특성을 사용하면 사용 CipherSuite를 설정할 수있다. ::
 
    # server.xml - <Server>
 
@@ -110,15 +109,15 @@ TLS_RSA_WITH_RC4_128_MD5 (0x0004)                                     O
       <CA>/usr/ssl/CA.pem</CA>
    </Https>
 
--  ``CipherSuite`` `Apache mod_sslの SSL CipherSuite表現 <http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslciphersuite>`_ に続く。
+-  ``CipherSuite`` `Apache mod_ssl의 SSL CipherSuite표현 <http://httpd.apache.org/docs/2.2/mod/mod_ssl.html#sslciphersuite>`_ 을 따른다.
 
-`Forward Secrecy <https://en.wikipedia.org/wiki/Forward_secrecy>`_ を保証する、より高い安全性を得ることができる。 （下のリンク参照）
+`Forward Secrecy <https://en.wikipedia.org/wiki/Forward_secrecy>`_ 을 보장하는 높은 안전성을 얻을 수있다. (아래 링크 참조)
 
    - `SSL Labs: Deploying Forward Secrecy <https://community.qualys.com/blogs/securitylabs/2013/06/25/ssl-labs-deploying-forward-secrecy>`_
    - `SSL/TLS & Perfect Forward Secrecy <http://vincent.bernat.im/en/blog/2011-ssl-perfect-forward-secrecy.html>`_
    - `Configuring Apache, Nginx, and OpenSSL for Forward Secrecy <https://community.qualys.com/blogs/securitylabs/2013/08/05/configuring-apache-nginx-and-openssl-for-forward-secrecy>`_
 
-基本的には FS（Forward Secrecy）を保証するCipherSuiteを優先的に選択する。 ::
+기본적으로 FS (Forward Secrecy)를 보장하는 CipherSuite를 우선적으로 선택한다. ::
 
    # server.xml - <Server>
 
@@ -126,27 +125,27 @@ TLS_RSA_WITH_RC4_128_MD5 (0x0004)                                     O
 
 -  ``FS``
 
-   - ``ON (基本)`` Forward Secrecyを保証するCipherSuiteを優先的に選択する。
-   - ``OFF`` ClientHelloに記載順に選択する。
+   - ``ON (기본)`` Forward Secrecy를 보장하는 CipherSuite를 우선적으로 선택한다.
+   - ``OFF`` ClientHello에 순서대로 선택한다.
 
-``FS`` 属性は ``CipherSuite`` 属性よりも優先します。
+``FS`` 속성은 ``CipherSuite`` 특성보다 우선합니다.
 
 .. note::
 
-   パフォーマンス上の理由から、ECDHEのみをサポートする。 DHEは対応していない。
+   성능상의 이유로 ECDHE만을 지원한다. DHE는 지원하지 않는다.
 
 
 
 .. _https-ciphersuite-query:
 
-CipherSuite照会
+CipherSuite 조회
 ====================================
 
-CipherSuite設定結果を照会する。 CipherSuite式は `OpenSSL 1.0.0E <https://www.openssl.org/docs/apps/ciphers.html>`_ を遵守する。 ::
+CipherSuite 설정 결과를 조회한다. CipherSuite 식은 `OpenSSL 1.0.0E <https://www.openssl.org/docs/apps/ciphers.html>`_ 를 준수한다. ::
 
    http://127.0.0.1:10040/monitoring/ssl?ciphersuite=...
 
-結果は、JSON形式で提供される。 ::
+결과는 JSON 형식으로 제공된다. ::
 
   {
       "version": "2.0.0",
@@ -175,27 +174,26 @@ CipherSuite設定結果を照会する。 CipherSuite式は `OpenSSL 1.0.0E <htt
 
 
 
-マルチDomain構成
+멀티 Domain 구성
 ====================================
 
-一台のサーバーで複数のサービスを同時に運用する場合は、SSLの設定が問題になることができる。 ほとんどのWeb / Cacheサーバは、HTTPリクエストのHostヘッダを見ていくつかの仮想ホストでサービスするかどうかを決定する。
+하나의 서버에서 여러 서비스를 동시에 운용하는 경우 SSL 설정이 문제가 될 수있다. 대부분의 Web / Cache 서버는 HTTP 요청의 Host 헤더를보고 어떤 가상 호스트에서 서비스 여부를 결정한다.
 
 .. figure:: img/ssl_alert.png
    :align: center
 
-   一般HTTPS通信
+   일반 HTTPS 통신
 
-一般的に、SSLは、クライアント（Browser）が、自分が接続しようとするサーバーのドメイン名（winesoft.co.kr）を証明書を使用して確認すること身元確認をする。 もし証明書で身元確認がされていない場合（無効な証明書または有効期間満了など）は、次のようにユーザーに信頼するかどうかを尋ねる（最初から遮断する場合もある）。 信頼は、クライアントがするので、通常の身元確認にならなくても続行したい場合はSSL通信が行われる。
+일반적으로 SSL은 클라이언트 (Browser)가 자신이 연결하고자하는 서버의 도메인 이름 (winesoft.co.kr)을 인증서를 사용하여 확인할 신원 확인을한다. 만약 인증서로 신원 확인이되지 않은 경우 (잘못된 인증서 또는 유효 기간 만료 등)는 다음과 같이 사용자에게 신뢰 여부를 묻는 (처음부터 차단하는 경우도있다). 신뢰는 클라이언트가되므로 일반적으로 신원 확인이되지 않아도 계속하려면 SSL 통신이 이루어진다.
 
 .. figure:: img/faq_ssl1.jpg
    :align: center
 
-   ユーザーに判断を任せる。
+   사용자에게 판단을 맡긴다.
 
-サーバーでSSLを使用する仮想ホストが一つであれば問題にならない。 しかし、複数の仮想ホストを同時に運営するサーバーでは、問題になることができる。 なぜなら、サーバーがクライアントに証明書を転送するときに（"一般HTTPS通信"の "2.証明書伝達")
-クライアントがどのようなHostに接続しようとして知ることができないからである。
+서버에서 SSL을 사용하는 가상 호스트가 하나라면 문제가되지 않는다. 그러나 여러 가상 호스트를 동시에 운영하는 서버에서는 문제가 될 수있다. 왜냐하면, 서버가 클라이언트에 인증서를 전달할 때 ( "일반 HTTPS 통신"의 "2. 인증서 전달") 클라이언트가 어떤 Host에 연결하려고 알 수 없기 때문이다.
 
-この問題を克服する代表的な方法は次のとおりである。
+이 문제를 극복하는 대표적인 방법은 다음과 같다.
 
 =================== ====================================== ========================================================================
 방식	            장점	                               단점
@@ -213,8 +211,8 @@ Multi NIC	        서버설정만으로 동작 (가장 널리쓰임)    NIC와 I
 SNI (Server Name Indication)
 --------------------------
 
-SSL / TLSの `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Name_Indication>`_
-拡張フィールドを使用する方式である。 この方式は、クライアントがサーバーにSSL接続を要求するときServer Name拡張フィールドを明示することで可能である。 ::
+SSL / TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_Name_Indication>`_
+확장 필드를 사용하는 방식이다. 이 방식은 클라이언트가 서버에 SSL 연결을 요청할 때 Server Name 확장 필드를 명시함으로써 가능하다. ::
 
    # server.xml - <Server><Cache>
 
@@ -222,9 +220,9 @@ SSL / TLSの `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_N
 
 -  ``<HttpsSNI>``
 
-   - ``OFF (基本)`` `Multi Port`_ または `Multi NIC`_ 方法で複数の証明書をサポートします。
+   - ``OFF (기본)`` `Multi Port`_ 또는 `Multi NIC`_ 방법으로 여러 인증서를 지원합니다.
 
-   - ``ON`` のようなIP + Portの組み合わせで複数の証明書をサポートする。 以下の場合のように、ポート443で複数の証明書をサポートすることができる。 ::
+   - ``ON`` 과 같은 IP + Port의 조합으로 여러 인증서를 지원한다. 다음의 경우처럼, 포트 443에서 여러 인증서를 지원할 수있다. ::
 
       # server.xml - <Server>
 
@@ -241,13 +239,13 @@ SSL / TLSの `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_N
       </Https>
 
 
-``<HttpsSNI>`` は、動的に変更が不可能である。 設定の変更後は、必ずサービスを再起動しなければならない。
+``<HttpsSNI>`` 은 동적으로 변경이 불가능하다. 설정 변경 후에는 반드시 서비스를 다시 시작해야한다.
 
 .. note::
 
-   SNIは2003年6月 `RFC 3546 <https://tools.ietf.org/html/rfc3546#page-8>`_ を介してTLS 1.0以降でのみ定義された。 したがってSSL v3ではSNIをサポートしていません。 参考までにOpenSSLのs_clientにSSL-3.0オプションを適用すると、SNI拡張フィールドを送信しません。
+   SNI는 2003 년 6 월 `RFC 3546 <https://tools.ietf.org/html/rfc3546#page-8>`_ 을 통해 TLS 1.0 이상에서만 정의되었다. 따라서 SSL v3는 SNI를 지원하지 않습니다. 참고로 OpenSSL의 s_client에 SSL-3.0 옵션을 적용하면 SNI 확장 필드를 전송하지 않습니다.
 
-現在までで最もエレガントな方法ですが、いくつかの古いクライアントでサポートされていない。 以下は、SNIをサポートしていないクライアントのリストである。 （出典: `Wikipedia - Server Name Indication <http://en.wikipedia.org/wiki/Server_Name_Indication#Client_side>`_ )
+현재까지 가장 우아한 방법이지만, 일부 오래된 클라이언트에서 지원되지 않습니다. 다음은 SNI를 지원하지 않는 클라이언트의 목록이다. (출처: `Wikipedia - Server Name Indication <http://en.wikipedia.org/wiki/Server_Name_Indication#Client_side>`_ )
 
 - Internet Explorer (any version) on Windows XP or Internet Explorer 6 or earlier
 - Safari on Windows XP
@@ -263,52 +261,52 @@ SSL / TLSの `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_N
 Multi Certificate
 --------------------------
 
-証明書に複数のドメインを入れたりWildcard(i.e. *.winesoft.co.kr)を明示して1つの証明書で複数のドメインの身元を確認することができる方法である。
+인증서에 여러 도메인을 넣고 Wildcard (ie * .winesoft.co.kr)을 명시하여 하나의 인증서로 여러 도메인의 신원을 확인할 수있는 방법이다.
 
 .. figure:: img/faq_ssl2.jpg
    :align: center
 
-   一つの証明書で複数Domainを認証する。
+   하나의 인증서로 여러 Domain을 인증한다.
 
-サービス主体が同じなら、効果的な方法ですが、無関係であれば、同じ証明書を共有することは現実的に困難である。 この方法は、証明書のみを交換すればれるものなのでSTONで個別に設定することはない。
-[ `DigiCert <http://www.digicert.com/wildcard-ssl-certificates.htm>`_ 参考].
+서비스 주체가 동일한 경우에 효과적인 방법이지만, 무관하다면 동일한 인증서를 공유하는 것은 현실적으로 곤란하다. 이 방법은 인증서 만 교체하면되는 것이므로 STON 개별적으로 구성 할 수는 없다.
+[ `DigiCert <http://www.digicert.com/wildcard-ssl-certificates.htm>`_ 참고]
 
 
 
 Multi Port
 --------------------------
 
-SSL / TLSはポート443を使用する。 重複していないポートを利用して、証明書を複数インストールすることができる。 クライアントでは、次のようにポートを明示することにより、SSL通信が可能である。 ::
+SSL / TLS는 443 포트를 사용한다. 중복되지 않는 포트를 이용하여 인증서를 여러 개 설치할 수있다. 클라이언트는 다음과 같이 포트를 명시하여 SSL 통신이 가능하다. ::
 
     https://winesoft.co.kr:543/
 
-STONでは、次のようにListen属性にポートを明示して、証明書を複数に設定する。 ::
+STON는 다음과 같이 Listen 속성에 포트를 명시하여 인증서를 복수로 설정한다. ::
 
    # server.xml - <Server>
 
-   <Https> ..A社 の証明書.. </Https>
-   <Https Listen="*:543"> ..B社 の証明書.. </Https>
-   <Https Listen="*:544"> ..C社 の証明書.. </Https>
+   <Https> ..A 사의 인증서.. </Https>
+   <Https Listen="*:543"> ..B사 인증서.. </Https>
+   <Https Listen="*:544"> ..C사 인증서.. </Https>
 
-この方法は、最も経済的ではあるが、すべてのWebページへのリンクにHTTPSポートを指定しなければなら問題がある。
+이 방법은 가장 경제적이지만, 모든 Web 페이지에 링크에 HTTPS 포트를 지정해야한다면 문제가있다.
 
 
 Multi NIC
 --------------------------
 
-サーバーのNICが複数で構成されている場合NICごとにIPアドレスを個別に割り当てることができる。 したがって、サーバーのIPごとに個別の証明書をインストールして、クライアントが接続したサーバーのIPに基づいて証明書を決定するように設定する。 STONでは、次のようにListen属性にIPアドレスを明示して、証明書を複数に設定する。. ::
+서버의 NIC가 복수로 구성되어있는 경우 각 NIC에 IP 주소를 개별적으로 할당 할 수있다. 따라서 서버의 IP에 대해 별도의 인증서를 설치하여 클라이언트가 접속 한 서버의 IP에 따라 인증서를 결정하도록 설정한다. STON는 다음과 같이 Listen 특성에 IP 주소를 명시하여 인증서를 복수로 설정한다. ::
 
    # server.xml - <Server>
 
-   <Https Listen="10.10.10.10"> ..A社 の証明書.. </Https>
-   <Https Listen="10.10.10.11"> ..B社 の証明書.. </Https>
-   <Https Listen="10.10.10.12"> ..C社 の証明書.. </Https>
+   <Https Listen="10.10.10.10"> ..A사 인증서.. </Https>
+   <Https Listen="10.10.10.11"> ..B사 인증서.. </Https>
+   <Https Listen="10.10.10.12"> ..C사 인증서.. </Https>
 
-この方法は、最も一般的に使用される方式である。
+이 방법은 가장 일반적으로 사용되는 방식이다.
 
 .. note::
 
-   設定を共有すると、IPアドレスのために問題になることができる。 このような場合は、IPの代わりにNICの名前に設定する。 ::
+   설정을 공유하면 IP 주소에 대한 문제가 될 수있다. 이런 경우 IP가 아닌 NIC의 이름으로 설정한다. ::
 
       # server.xml - <Server>
 
@@ -318,22 +316,22 @@ Multi NIC
 
 
 
-プロトコルの設定
+프로토콜 설정
 ====================================
 
-``<Https>`` にプロトコルを構成する。 ::
+``<Https>`` 프로토콜을 구성한다. ::
 
    # server.xml - <Server>
 
    <Https TLS1.2="ON" TLS1.1="ON" TLS1.0="ON" SSL3.0="ON"> ...  </Https>
 
-- ``TLS1.2 (基本: ON)`` TLS1.2を使用する。
+- ``TLS1.2 (기본: ON)`` TLS1.2을 사용한다.
 
-- ``TLS1.1 (基本: ON)`` TLS1.1を使用する。
+- ``TLS1.1 (기본: ON)`` TLS1.1을 사용한다.
 
-- ``TLS1.0 (基本: ON)`` TLS1.0を使用する。
+- ``TLS1.0 (기본: ON)`` TLS1.0을 사용한다.
 
-- ``SSL3.0 (基本: ON)`` SSL3.0を使用する。
+- ``SSL3.0 (기본: ON)`` SSL3.0을 사용한다.
 
 
 .. _https-hsts:
@@ -341,17 +339,17 @@ Multi NIC
 HSTS
 ====================================
 
-`HSTS(HTTP Strict Transport Security) <https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>`_ は、
-:ref:`handling_http_requests_modify_client` を利用して簡単に実装が可能である。
+`HSTS(HTTP Strict Transport Security) <https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security>`_ 는
+:ref:`handling_http_requests_modify_client` 을 이용하여 쉽게 구현이 가능하다.
 ::
 
    # /svc/www.example.com/headers.txt
 
    *, $RES[Strict-Transport-Security: max-age=31536000; includeSubDomains], set
 
-`Qualys SSL Server Test <https://www.ssllabs.com/ssltest/>`_ ではHSTSが適用されたサイトにのみA +の評価を与えている。
+`Qualys SSL Server Test <https://www.ssllabs.com/ssltest/>`_ 는 HSTS가 적용된 사이트에만 A + 등급을 부여하고있다.
 
 .. figure:: img/qualys_a_plus.png
    :align: center
 
-   STON v2.2からA +を受けることができる
+   STON v2.2에서 A +를받을 수있다

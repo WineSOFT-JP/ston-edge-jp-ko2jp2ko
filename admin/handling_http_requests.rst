@@ -59,7 +59,6 @@ STON 가급적 Apache의 정책에 따른다. 특히 세션 유지 정책은 HTT
       GET / HTTP/1.1
       1
       1
-      ...(생략)...
       1
       Connection: Close
       1

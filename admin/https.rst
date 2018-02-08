@@ -261,7 +261,7 @@ SSL / TLS의 `SNI(Server Name Indication) <http://en.wikipedia.org/wiki/Server_N
 Multi Certificate
 --------------------------
 
-인증서에 여러 도메인을 넣고 Wildcard (ie * .winesoft.co.kr)을 명시하여 하나의 인증서로 여러 도메인의 신원을 확인할 수있는 방법이다.
+인증서에 여러 도메인을 넣고 Wildcard (i.e. * .winesoft.co.kr)을 명시하여 하나의 인증서로 여러 도메인의 신원을 확인할 수있는 방법이다.
 
 .. figure:: img/faq_ssl2.jpg
    :align: center

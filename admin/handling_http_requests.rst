@@ -56,14 +56,14 @@ STON 가급적 Apache의 정책에 따른다. 특히 세션 유지 정책은 HTT
 
 1. 클라이언트의 HTTP 요청에 "Connection : Close"에 명시되어있는 경우 ::
 
-      HTTP/1.1 200 OK
+      GET / HTTP/1.1
       ...(생략)...
       Connection: Close
 
    이러한 HTTP 요청은 가상 호스트 설정의 유무에 불구하고 "Connection : Close"로 응답한다. Keep-Alive 헤더는 명시되지 않는다. ::
 
       HTTP/1.1 200 OK
-      ...(생략)...
+      ...(생략)...
       Connection: Close
 
    이 HTTP 트랜잭션이 완료되면 HTTP 연결을 종료한다.

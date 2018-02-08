@@ -940,17 +940,17 @@ OID                                           Name                              
 .10.64. ``[vhostMin]`` . ``[vhostIndex]``     http.connectTime                      Integer    소스 서버의 평균 접속 시간 (0.01ms)
 .10.65. ``[vhostMin]`` . ``[vhostIndex]``     http.connectTimeoutCount              Integer    소스 서버 연결 실패 횟수
 .10.66. ``[vhostMin]`` . ``[vhostIndex]``     http.receiveTimeoutCount              Integer    소스 서버의 전송에 실패한 횟수
-.10.67. ``[vhostMin]`` . ``[vhostIndex]``     http.connectCount                     Integer    ソースサーバー接続成功回数
-.10.68. ``[vhostMin]`` . ``[vhostIndex]``     http.closeAverage                     Integer    転送中のソースサーバーから先にソケットを終了した平均回数
-.10.69. ``[vhostMin]`` . ``[vhostIndex]``     http.closeCount                       Integer    転送中のソースサーバーから先にソケットを終了した回数
-.11                                           portbypass                            OID        Portバイパス元サーバーのトラフィック情報
-.11.1. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.inbound                    Integer    Portバイパスを介して、元のサーバーから受け取る平均トラフィック(Bytes)
-.11.2. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.outbound                   Integer    Portバイパスを介して、元のサーバーに送信する平均トラフィック(Bytes)
-.11.3. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.sessionAverage             Integer    Portバイパス中の平均元のサーバーのセッション数
-.11.4. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedAverage              Integer    Portバイパス中のソースサーバーが接続を終了した平均回数
-.11.5. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.connectTimeoutAverage      Integer    Portバイパス元のサーバーの平均接続失敗回数
-.11.6. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedCount                Integer    Portバイパス中のソースサーバーが接続を終了した回数
-.11.7. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.connectTimeoutCount        Integer    Portバイパス元のサーバー接続に失敗した回数
+.10.67. ``[vhostMin]`` . ``[vhostIndex]``     http.connectCount                     Integer    소스 서버 접속 성공 횟수
+.10.68. ``[vhostMin]`` . ``[vhostIndex]``     http.closeAverage                     Integer    전송 중에 소스 서버에서 먼저 소켓을 종료 한 평균 횟수
+.10.69. ``[vhostMin]`` . ``[vhostIndex]``     http.closeCount                       Integer    전송 중에 소스 서버에서 먼저 소켓을 종료 한 횟수
+.11                                           portbypass                            OID        Port 우회 원본 서버의 트래픽 정보
+.11.1. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.inbound                    Integer    Port 우회를 통해 원본 서버에서받는 평균 트래픽 (Bytes)
+.11.2. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.outbound                   Integer    Port 우회를 통해 원래의 서버로 전송하는 평균 트래픽 (Bytes)
+.11.3. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.sessionAverage             Integer    Port 우회 동안 평균 원본 서버의 세션 수
+.11.4. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedAverage              Integer    Port 우회중인 원본 서버가 연결을 종료 한 평균 횟수
+.11.5. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.connectTimeoutAverage      Integer    Port 우회하는 서버의 평균 연결 실패 횟수
+.11.6. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedCount                Integer    Port 우회중인 원본 서버가 연결을 종료 한 횟수
+.11.7. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.connectTimeoutCount        Integer    Port 우회하는 서버 연결 실패 횟수
 ============================================= ===================================== ========== =================================================================
 
 
@@ -964,67 +964,67 @@ cache.vhost.traffic.client
 
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.11
 
-クライアントトラフィックの統計情報を提供する。クライアントのトラフィックは、HTTPトラフィックは、SSLトラフィック、Portバイパストラフィックに区分される。SNMPでは、ディレクトリごとの統計を提供しない。たとえディレクトリの統計情報が設定されているとしても、合算されています。
+클라이언트 트래픽 통계를 제공한다. 클라이언트의 트래픽은 HTTP 트래픽은 SSL 트래픽, Port 우회 트래픽으로 구분된다. SNMP는 디렉토리 별 통계를 제공하지 않는다. 비록 디렉토리 통계가 설정되어있다하더라도 합산되어 있습니다.
 
 ============================================= ========================================= ========== ==============================================================
 OID                                           Name                                      Type       Description
 ============================================= ========================================= ========== ==============================================================
-.1. ``[vhostMin]`` . ``[vhostIndex]``         inbound                                   Integer    クライアントから受信平均トラフィック(Bytes)
-.2. ``[vhostMin]`` . ``[vhostIndex]``         outbound                                  Integer    クライアントに送信平均トラフィック(Bytes)
-.3. ``[vhostMin]`` . ``[vhostIndex]``         sessionAverage                            Integer    完全なクライアントの平均セッション数
-.4. ``[vhostMin]`` . ``[vhostIndex]``         activesessionAverage                      Integer    全クライアントの転送中の平均セッション数균 세션수
-.10                                           http                                      OID        クライアントのHTTPトラフィック情報
-.10.1. ``[vhostMin]`` . ``[vhostIndex]``      http.inbound                              Integer    クライアントから受信平均HTTPトラフィック(Bytes)
-.10.2. ``[vhostMin]`` . ``[vhostIndex]``      http.outbound                             Integer    クライアントに送信平均HTTPトラフィック(Bytes)
-.10.3. ``[vhostMin]`` . ``[vhostIndex]``      http.sessionAverage                       Integer    クライアントの平均HTTPセッション数
-.10.4. ``[vhostMin]`` . ``[vhostIndex]``      http.reqHeaderSize                        Integer    クライアントから受信平均HTTP Headerトラフィック(Bytes)
-.10.5. ``[vhostMin]`` . ``[vhostIndex]``      http.reqBodySize                          Integer    クライアントから受信平均HTTP Bodyトラフィック(Bytes)
-.10.6. ``[vhostMin]`` . ``[vhostIndex]``      http.resHeaderSize                        Integer    クライアントに送信平均HTTP Headerトラフィック(Bytes)
-.10.7. ``[vhostMin]`` . ``[vhostIndex]``      http.resBodySize                          Integer    クライアントに送信平均HTTP Bodyトラフィック(Bytes)
-.10.8. ``[vhostMin]`` . ``[vhostIndex]``      http.reqAverage                           Integer    クライアントから受信した平均HTTPリクエスト数
-.10.9. ``[vhostMin]`` . ``[vhostIndex]``      http.reqCount                             Integer    クライアントから受信したHTTPリクエスト数
-.10.10. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalAverage                      Integer    クライアントに送信平均全体の応答数
-.10.11. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalCompleteAverage              Integer    クライアントが完了した平均HTTPトランザクション数
-.10.12. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalTimeRes                      Integer    クライアントの応答の平均所要時間(0.01ms)
-.10.13. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalTimeComplete                 Integer    クライアントHTTP Transaction平均完了時間(0.01ms)
-.10.14. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalCount                        Integer    クライアントに送信全体の応答数
-.10.15. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalCompleteCount                Integer    クライアントが完了したHTTPトランザクション数
-.10.20. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxAverage                        Integer    クライアントに送信平均2xx応答数
-.10.21. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxCompleteAverage                Integer    クライアントが完了した平均2xxトランザクション数
-.10.22. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxTimeRes                        Integer    クライアント2xx応答の平均所要時間(0.01ms)
-.10.23. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxTimeComplete                   Integer    クライアント2xx応答HTTP Transaction平均完了時間(0.01ms)
-.10.24. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxCount                          Integer    クライアントに送信2xx応答数
-.10.25. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxCompleteCount                  Integer    クライアントが完了した2xxトランザクション数
-.10.30. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxAverage                        Integer    クライアントに送信平均3xx応答数
-.10.31. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxCompleteAverage                Integer    クライアントが完了した平均3xxトランザクション数
-.10.32. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxTimeRes                        Integer    クライアント3xx応答の平均所要時間(0.01ms)
-.10.33. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxTimeComplete                   Integer    クライアント3xx応答HTTP Transaction平均完了時間(0.01ms)
-.10.34. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxCount                          Integer    クライアントに送信3xx応答数
-.10.35. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxCompleteCount                  Integer    クライアントが完了した3xxトランザクション数
-.10.40. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxAverage                        Integer    クライアントに送信平均4xx応答数
-.10.41. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxCompleteAverage                Integer    クライアントが完了した平均4xxトランザクション数
-.10.42. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxTimeRes                        Integer    クライアント4xx応答の平均所要時間(0.01ms)
-.10.43. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxTimeComplete                   Integer    クライアント4xx応答HTTP Transaction平均完了時間(0.01ms)
-.10.44. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxCount                          Integer    クライアントに送信4xx応答数
-.10.45. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxCompleteCount                  Integer    クライアントが完了した4xxトランザクション数
-.10.50. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxAverage                        Integer    クライアントに送信平均5xx応答数
-.10.51. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxCompleteAverage                Integer    クライアントが完了した平均5xxトランザクション数
-.10.52. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxTimeRes                        Integer    クライアント5xx応答の平均所要時間(0.01ms)
-.10.53. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxTimeComplete                   Integer    クライアント5xx応答HTTP Transaction平均完了時間(0.01ms)
-.10.54. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxCount                          Integer    クライアントに送信5xx応答数
-.10.55. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxCompleteCount                  Integer    クライアントが完了した5xxトランザクション数
-.10.60. ``[vhostMin]`` . ``[vhostIndex]``     http.reqDeniedAverage                     Integer    ブロックされたリクエストの平均
-.10.61. ``[vhostMin]`` . ``[vhostIndex]``     http.reqDeniedCount                       Integer    ブロックされたリクエスト数
-.11                                           portbypass                                OID        Portバイパスクライアントのトラフィック情報
-.11.1. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.inbound                        Integer    Portバイパスを介してクライアントから受信平均トラフィック(Bytes)
-.11.2. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.outbound                       Integer    Portバイパスを介してクライアントに送信平均トラフィック(Bytes)
-.11.3. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.sessionAverage                 Integer    Portバイパスしているクライアントの平均セッション数
-.11.4. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedAverage                  Integer    Portバイパス中のクライアントが接続を終了した平均回数
-.11.5. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedCount                    Integer    Portバイパス中のクライアントが接続を終了した回数
-.12                                           ssl                                       OID        SSLクライアントのトラフィック情報
-.12.2. ``[vhostMin]`` . ``[vhostIndex]``      ssl.inbound                               Integer    SSLを介してクライアントから受信平均トラフィック(Bytes)
-.12.3. ``[vhostMin]`` . ``[vhostIndex]``      ssl.outbound                              Integer    SSLを介してクライアントに送信平均トラフィック(Bytes)
-.13                                           requestHitAverage                         OID        平均キャッシュHIT結果
+.1. ``[vhostMin]`` . ``[vhostIndex]``         inbound                                   Integer    클라이언트에서받은 평균 트래픽 (Bytes)
+.2. ``[vhostMin]`` . ``[vhostIndex]``         outbound                                  Integer    클라이언트로 전송 평균 트래픽 (Bytes)
+.3. ``[vhostMin]`` . ``[vhostIndex]``         sessionAverage                            Integer    전체 평균 클라이언트 세션 수
+.4. ``[vhostMin]`` . ``[vhostIndex]``         activesessionAverage                      Integer    모든 클라이언트에 전송되는 평균 방문수 균 세션 수
+.10                                           http                                      OID        클라이언트의 HTTP 트래픽 정보
+.10.1. ``[vhostMin]`` . ``[vhostIndex]``      http.inbound                              Integer    클라이언트에서받은 평균 HTTP 트래픽 (Bytes)
+.10.2. ``[vhostMin]`` . ``[vhostIndex]``      http.outbound                             Integer    클라이언트로 전송 평균 HTTP 트래픽 (Bytes)
+.10.3. ``[vhostMin]`` . ``[vhostIndex]``      http.sessionAverage                       Integer    클라이언트의 평균 HTTP 세션 수
+.10.4. ``[vhostMin]`` . ``[vhostIndex]``      http.reqHeaderSize                        Integer    클라이언트에서받은 평균 HTTP Header 트래픽 (Bytes)
+.10.5. ``[vhostMin]`` . ``[vhostIndex]``      http.reqBodySize                          Integer    클라이언트에서받은 평균 HTTP Body 트래픽 (Bytes)
+.10.6. ``[vhostMin]`` . ``[vhostIndex]``      http.resHeaderSize                        Integer    클라이언트로 전송 평균 HTTP Header 트래픽 (Bytes)
+.10.7. ``[vhostMin]`` . ``[vhostIndex]``      http.resBodySize                          Integer    클라이언트로 전송 평균 HTTP Body 트래픽 (Bytes)
+.10.8. ``[vhostMin]`` . ``[vhostIndex]``      http.reqAverage                           Integer    클라이언트에서받은 평균 HTTP 요청 수
+.10.9. ``[vhostMin]`` . ``[vhostIndex]``      http.reqCount                             Integer    클라이언트로부터 수신 한 HTTP 요청 수
+.10.10. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalAverage                      Integer    클라이언트로 전송 평균 전체 응답 수
+.10.11. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalCompleteAverage              Integer    클라이언트가 완료 한 평균 HTTP 트랜잭션 수
+.10.12. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalTimeRes                      Integer    클라이언트의 응답의 평균 소요 시간 (0.01ms)
+.10.13. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalTimeComplete                 Integer    클라이언트 HTTP Transaction 평균 완료 시간 (0.01ms)
+.10.14. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalCount                        Integer    클라이언트에 보낼 전체 응답 수
+.10.15. ``[vhostMin]`` . ``[vhostIndex]``     http.resTotalCompleteCount                Integer    클라이언트가 완료된 HTTP 트랜잭션 수
+.10.20. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxAverage                        Integer    클라이언트로 전송 평균 2xx 응답 수
+.10.21. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxCompleteAverage                Integer    클라이언트가 완료 한 평균 2xx 트랜잭션 수
+.10.22. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxTimeRes                        Integer    클라이언트 2xx 응답의 평균 소요 시간 (0.01ms)
+.10.23. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxTimeComplete                   Integer    클라이언트 2xx 응답 HTTP Transaction 평균 완료 시간 (0.01ms)
+.10.24. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxCount                          Integer    클라이언트로 전송 2xx 응답 수
+.10.25. ``[vhostMin]`` . ``[vhostIndex]``     http.res2xxCompleteCount                  Integer    클라이언트가 완료된 2xx 트랜잭션 수
+.10.30. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxAverage                        Integer    클라이언트로 전송 평균 3xx 응답 수
+.10.31. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxCompleteAverage                Integer    클라이언트가 완료 한 평균 3xx 트랜잭션 수
+.10.32. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxTimeRes                        Integer    클라이언트 3xx 응답의 평균 소요 시간 (0.01ms)
+.10.33. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxTimeComplete                   Integer    클라이언트 3xx 응답 HTTP Transaction 평균 완료 시간 (0.01ms)
+.10.34. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxCount                          Integer    클라이언트로 전송 3xx 응답 수
+.10.35. ``[vhostMin]`` . ``[vhostIndex]``     http.res3xxCompleteCount                  Integer    클라이언트가 완료된 3xx 트랜잭션 수
+.10.40. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxAverage                        Integer    클라이언트로 전송 평균 4xx 응답 수
+.10.41. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxCompleteAverage                Integer    클라이언트가 완료 한 평균 4xx 트랜잭션 수
+.10.42. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxTimeRes                        Integer    클라이언트 4xx 응답의 평균 소요 시간 (0.01ms)
+.10.43. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxTimeComplete                   Integer    클라이언트 4xx 응답 HTTP Transaction 평균 완료 시간 (0.01ms)
+.10.44. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxCount                          Integer    클라이언트로 전송 4xx 응답 수
+.10.45. ``[vhostMin]`` . ``[vhostIndex]``     http.res4xxCompleteCount                  Integer    클라이언트가 완료된 4xx 트랜잭션 수
+.10.50. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxAverage                        Integer    클라이언트로 전송 평균 5xx 응답 수
+.10.51. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxCompleteAverage                Integer    클라이언트가 완료 한 평균 5xx 트랜잭션 수
+.10.52. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxTimeRes                        Integer    클라이언트 5xx 응답의 평균 소요 시간 (0.01ms)
+.10.53. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxTimeComplete                   Integer    클라이언트 5xx 응답 HTTP Transaction 평균 완료 시간 (0.01ms)
+.10.54. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxCount                          Integer    클라이언트로 전송 5xx 응답 수
+.10.55. ``[vhostMin]`` . ``[vhostIndex]``     http.res5xxCompleteCount                  Integer    클라이언트가 완료된 5xx 트랜잭션 수
+.10.60. ``[vhostMin]`` . ``[vhostIndex]``     http.reqDeniedAverage                     Integer    차단 된 요청의 평균
+.10.61. ``[vhostMin]`` . ``[vhostIndex]``     http.reqDeniedCount                       Integer    차단 된 요청 수
+.11                                           portbypass                                OID        Port 우회 클라이언트의 트래픽 정보
+.11.1. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.inbound                        Integer    Port 우회를 통해 클라이언트로부터받는 평균 트래픽 (Bytes)
+.11.2. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.outbound                       Integer    Port 우회를 통해 클라이언트로 전송 평균 트래픽 (Bytes)
+.11.3. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.sessionAverage                 Integer    Port 우회하는 클라이언트의 평균 방문수
+.11.4. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedAverage                  Integer    Port 우회중인 클라이언트가 연결을 종료 한 평균 횟수
+.11.5. ``[vhostMin]`` . ``[vhostIndex]``      portbypass.closedCount                    Integer    Port 우회중인 클라이언트가 연결을 종료 한 횟수
+.12                                           ssl                                       OID        SSL 클라이언트의 트래픽 정보
+.12.2. ``[vhostMin]`` . ``[vhostIndex]``      ssl.inbound                               Integer    SSL을 통해 클라이언트로부터받는 평균 트래픽 (Bytes)
+.12.3. ``[vhostMin]`` . ``[vhostIndex]``      ssl.outbound                              Integer    SSL을 통해 클라이언트로 전송 평균 트래픽 (Bytes)
+.13                                           requestHitAverage                         OID        평균 캐시 HIT 결과
 .13.1. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_HIT                 Integer    TCP_HIT
 .13.2. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_IMS_HIT             Integer    TCP_IMS_HIT
 .13.3. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_REFRESH_HIT         Integer    TCP_REFRESH_HIT
@@ -1036,7 +1036,7 @@ OID                                           Name                              
 .13.9. ``[vhostMin]`` . ``[vhostIndex]``      requestHitAverage.TCP_DENIED              Integer    TCP_DENIED
 .13.10. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_ERROR               Integer    TCP_ERROR
 .13.11. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_REDIRECT_HIT        Integer    TCP_REDIRECT_HIT
-.14                                           requestHitCount                           OID        キャッシュHIT結果数
+.14                                           requestHitCount                           OID        캐시 HIT 결과 수
 .14.1. ``[vhostMin]`` . ``[vhostIndex]``      requestHitCount.TCP_HIT                   Integer    TCP_HIT
 .14.2. ``[vhostMin]`` . ``[vhostIndex]``      requestHitCount.TCP_IMS_HIT               Integer    TCP_IMS_HIT
 .14.3. ``[vhostMin]`` . ``[vhostIndex]``      requestHitCount.TCP_REFRESH_HIT           Integer    TCP_REFRESH_HIT
@@ -1061,7 +1061,7 @@ cache.vhost.traffic.filesystem
 
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.20
 
-仮想ホストのFile I / O統計を提供する。
+가상 호스트의 File I / O 통계를 제공한다.
 
 =========================================== =========================================== ========== ==============================================
 OID                                         Name                                        Type       Description
@@ -1070,9 +1070,9 @@ OID                                         Name                                
 .2. ``[vhostMin]`` . ``[vhostIndex]``                                                              Request Hit Ratio(10000%)
 .3. ``[vhostMin]`` . ``[vhostIndex]``       byteHitRatio                                Integer    Byte Hit Ratio(100%)
 .4. ``[vhostMin]`` . ``[vhostIndex]``                                                              Byte Hit Ratio(10000%)
-.5. ``[vhostMin]`` . ``[vhostIndex]``       outbound                                    Integer    File I / Oデバイスに送信平均トラフィック (Bytes)
-.6. ``[vhostMin]`` . ``[vhostIndex]``       session                                     Integer    File I / Oを実行中の平均Thread数
-.7                                          requestHitAverage                           OID        平均キャッシュHIT結果
+.5. ``[vhostMin]`` . ``[vhostIndex]``       outbound                                    Integer    File I / O로 보내는 평균 트래픽 (Bytes)
+.6. ``[vhostMin]`` . ``[vhostIndex]``       session                                     Integer    File I / O를 수행중인 평균 Thread 수
+.7                                          requestHitAverage                           OID        평균 캐시 HIT 결과
 .7.1. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_HIT                   Integer    TCP_HIT
 .7.2. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_IMS_HIT               Integer    TCP_IMS_HIT
 .7.3. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_REFRESH_HIT           Integer    TCP_REFRESH_HIT
@@ -1084,7 +1084,7 @@ OID                                         Name                                
 .7.9. ``[vhostMin]`` . ``[vhostIndex]``     requestHitAverage.TCP_DENIED                Integer    TCP_DENIED
 .7.10. ``[vhostMin]`` . ``[vhostIndex]``    requestHitAverage.TCP_ERROR                 Integer    TCP_ERROR
 .7.11. ``[vhostMin]`` . ``[vhostIndex]``    requestHitAverage.TCP_REDIRECT_HIT          Integer    TCP_REDIRECT_HIT
-.8                                          requestHitCount                             OID        キャッシュHIT結果数
+.8                                          requestHitCount                             OID        캐시 HIT 결과 수
 .8.1. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_HIT                     Integer    TCP_HIT
 .8.2. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_IMS_HIT                 Integer    TCP_IMS_HIT
 .8.3. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_REFRESH_HIT             Integer    TCP_REFRESH_HIT
@@ -1096,16 +1096,16 @@ OID                                         Name                                
 .8.9. ``[vhostMin]`` . ``[vhostIndex]``     requestHitCount.TCP_DENIED                  Integer    TCP_DENIED
 .8.10. ``[vhostMin]`` . ``[vhostIndex]``    requestHitCount.TCP_ERROR                   Integer    TCP_ERROR
 .8.11. ``[vhostMin]`` . ``[vhostIndex]``    requestHitCount.TCP_REDIRECT_HIT            Integer    TCP_REDIRECT_HIT
-.10. ``[vhostMin]`` . ``[vhostIndex]``      getattr.filecount                           Integer    （getattr関数呼び出し）FILEに応答した回数
-.11. ``[vhostMin]`` . ``[vhostIndex]``      getattr.dircount                            Integer    （getattr関数呼び出し）DIRで応答した回数
-.12. ``[vhostMin]`` . ``[vhostIndex]``      getattr.failcount                           Integer    （getattr関数呼び出し）が失敗に応答した回数
-.13. ``[vhostMin]`` . ``[vhostIndex]``      getattr.timeres                             Integer    （getattr関数の呼び出し）の反応時間 (0.01ms)
-.14. ``[vhostMin]`` . ``[vhostIndex]``      open.count                                  Integer    open関数の呼び出し回数
-.15. ``[vhostMin]`` . ``[vhostIndex]``      open.timeres                                Integer    open関数の反応時間 (0.01ms)
-.16. ``[vhostMin]`` . ``[vhostIndex]``      read.count                                  Integer    read関数の呼び出し回数
-.17. ``[vhostMin]`` . ``[vhostIndex]``      read.timeres                                Integer    read関数の反応時間 (0.01ms)
-.18. ``[vhostMin]`` . ``[vhostIndex]``      read.buffersize                             Integer    read関数で要求されたバッファサイズ (Bytes)
-.19. ``[vhostMin]`` . ``[vhostIndex]``      read.bufferfilled                           Integer    read関数で要求されたバッファに詰めたサイズ (Bytes)
+.10. ``[vhostMin]`` . ``[vhostIndex]``      getattr.filecount                           Integer    (getattr 함수 호출) FILE로 응답 한 횟수
+.11. ``[vhostMin]`` . ``[vhostIndex]``      getattr.dircount                            Integer    (getattr 함수 호출) DIR에 응답 한 횟수
+.12. ``[vhostMin]`` . ``[vhostIndex]``      getattr.failcount                           Integer    (getattr 함수 호출) 실패에 응답 한 횟수
+.13. ``[vhostMin]`` . ``[vhostIndex]``      getattr.timeres                             Integer    (getattr 함수의 호출)의 반응 시간 (0.01ms)
+.14. ``[vhostMin]`` . ``[vhostIndex]``      open.count                                  Integer    open 함수의 호출 횟수
+.15. ``[vhostMin]`` . ``[vhostIndex]``      open.timeres                                Integer    open 함수의 반응 시간 (0.01ms)
+.16. ``[vhostMin]`` . ``[vhostIndex]``      read.count                                  Integer    read 함수 호출 횟수
+.17. ``[vhostMin]`` . ``[vhostIndex]``      read.timeres                                Integer    read 함수의 반응 시간 (0.01ms)
+.18. ``[vhostMin]`` . ``[vhostIndex]``      read.buffersize                             Integer    read 함수에서 요구 된 버퍼 크기 (Bytes)
+.19. ``[vhostMin]`` . ``[vhostIndex]``      read.bufferfilled                           Integer    read 함수에서 요구 된 버퍼에 포장 크기 (Bytes)
 =========================================== =========================================== ========== ==============================================
 
 
@@ -1119,17 +1119,17 @@ cache.vhost.traffic.dims
 
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.21
 
-仮想ホストのDIMS変換統計を提供する。
+가상 호스트의 DIMS 변환 통계를 제공한다.
 
 =========================================== =========================================== ========== ==============================================
 OID                                         Name                                        Type       Description
 =========================================== =========================================== ========== ==============================================
-.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    DIMS変換要求数
-.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    変換に成功回数
-.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    変換に失敗した回数
-.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    元の画像の平均サイズ (Bytes)
-.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    変換された画像の平均サイズ (Bytes)
-.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    変換所要時間 (ms)
+.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    DIMS 변환 요청 수
+.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    변환에 성공 횟수
+.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    변환에 실패한 횟수
+.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    원본 이미지의 평균 크기 (Bytes)
+.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    변환 된 이미지의 평균 크기 (Bytes)
+.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    변환 시간 (ms)
 =========================================== =========================================== ========== ==============================================
 
 
@@ -1143,17 +1143,17 @@ cache.vhost.traffic.compression
 
    OID = 1.3.6.1.4.1.40001.1.4.3.1.11.22
 
-仮想ホストの圧縮統計を提供する。
+가상 호스트의 압축 통계를 제공한다.
 
 =========================================== =========================================== ========== ==============================================
 OID                                         Name                                        Type       Description
 =========================================== =========================================== ========== ==============================================
-.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    圧縮要求数
-.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    圧縮成功回数
-.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    圧縮失敗回数
-.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    元のファイルの平均サイズ (Bytes)
-.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    圧縮されたファイルの平均サイズ (Bytes)
-.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    圧縮時間 (ms)
+.1. ``[vhostMin]`` . ``[vhostIndex]``       requests                                    Integer    압축 요청 수
+.2. ``[vhostMin]`` . ``[vhostIndex]``       converted                                   Integer    압축 성공 횟수
+.3. ``[vhostMin]`` . ``[vhostIndex]``       failed                                      Integer    압축 실패 횟수
+.4. ``[vhostMin]`` . ``[vhostIndex]``       avgsrcsize                                  Integer    원본 파일의 평균 크기 (Bytes)
+.5. ``[vhostMin]`` . ``[vhostIndex]``       avgdestsize                                 Integer    압축 된 파일의 평균 크기 (Bytes)
+.6. ``[vhostMin]`` . ``[vhostIndex]``       avgtime                                     Integer    압축 시간 (ms)
 =========================================== =========================================== ========== ==============================================
 
 
@@ -1167,9 +1167,9 @@ cache.view
 
    OID = 1.3.6.1.4.1.40001.1.4.11.1
 
-仮想ホストの統計と同じ情報を提供する。
-``[viewIndex]`` は1からView数の範囲を持つ。
+가상 호스트의 통계와 같은 정보를 제공한다.
+``[viewIndex]`` 1에서 View 개수의 범위를 가진다.
 
-- 1.3.6.1.4.1.40001.1.4.3 - 仮想ホストの統計
+- 1.3.6.1.4.1.40001.1.4.3 - 가상 호스트의 통계
 
-- 1.3.6.1.4.1.40001.1.4.11 - View 統計
+- 1.3.6.1.4.1.40001.1.4.11 - View 통계

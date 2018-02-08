@@ -135,7 +135,7 @@ ExpireAfter
 .. note::
    ExpireAfter는 캐시 된 콘텐츠의 현재 유효 기간 만 설정하면 사용자 TTL과 설정된 기본 TTL을 변경하는 API는 없다. ExpireAfter 호출하면 캐시 된 콘텐츠는 영향을받지 않는다.
 
-url 매개 변수를 먼저 입력 한 경우 sec 매개 변수 url 매개 변수의 QueryString으로 인식 될 수있다. 따라서 sec 매개 변수를 먼저 입력되어있는 것이 안전하다.
+   url 매개 변수를 먼저 입력 한 경우 sec 매개 변수 url 매개 변수의 QueryString으로 인식 될 수있다. 따라서 sec 매개 변수를 먼저 입력되어있는 것이 안전하다.
    
    
 

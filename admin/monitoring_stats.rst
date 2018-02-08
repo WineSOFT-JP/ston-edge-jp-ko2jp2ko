@@ -664,7 +664,7 @@ DIMS의 성능 지표를 제공한다. ::
 -  ``Failed`` 변환에 실패한 횟수
 -  ``AvgSrcSize (단위: Bytes)`` 원본 이미지의 평균 크기
 -  ``AvgDestSize (단위: Bytes)`` 변환 된 이미지의 평균 크기
--  ``AvgTime (단위: ms)`` 환 시간
+-  ``AvgTime (단위: ms)`` 변환 시간
 
 
 압축 통계

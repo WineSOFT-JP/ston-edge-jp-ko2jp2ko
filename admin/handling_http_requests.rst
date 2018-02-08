@@ -56,7 +56,7 @@ STON 가급적 Apache의 정책에 따른다. 특히 세션 유지 정책은 HTT
 
 1. 클라이언트의 HTTP 요청에 "Connection : Close"에 명시되어있는 경우 ::
 
-      GET / HTTP/1.1
+      HTTP/1.1 200 OK
       ...(생략)...
       Connection: Close
 

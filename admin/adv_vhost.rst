@@ -3,7 +3,7 @@
 제 14 장 가상 호스트의 고급 기술
 ******************
 
- 장에서는 가상 호스트를 사용하여 서비스를 유연하게 구성하는 여러 방법에 대해 설명한다.
+이 장에서는 가상 호스트를 사용하여 서비스를 유연하게 구성하는 여러 방법에 대해 설명한다.
 
 가상 호스트는 일반적으로 원래의 (Domain 또는 IP 목록)과 1 : 1로 구성되는 것이 기본이다. 그러나 상황에 따라 대표 가상 호스트를 여러 하위 가상 호스트에 분기하거나 반대로 독립적 인 여러 가상 호스트를 하나의 서비스로 패키지하는 경우도 발생한다. 각 기능에 따라 :ref:`monitoring_stats_vhost_client` / :ref:`admin-log-access` 의 정책이 다를 수 있다는 점에 유의해야한다.
 
@@ -264,17 +264,17 @@ Redirect 추적
 
    # vhosts.xml - <Vhosts>
 
-   //  원본 서버가 5 xx에 응답하거나 캐시하지 않은 경우 (= fail) 요청을 bar.  com에게 위임한다.
+   //  원본 서버가 5 xx에 응답하거나 캐시하지 않은 경우 (= fail) 요청을 bar.com에게 위임한다.
    <Vhost Name="foo.com">
      <VhostLink Condition="5xx,fail">bar.com</VhostLink>
    </Vhost>
 
-   // 원본 서버가 4 xx에 응답 할 때 요청을 helloworld.  com에게 위임한다.
+   // 원본 서버가 4 xx에 응답 할 때 요청을 helloworld.com에게 위임한다.
    <Vhost Name="bar.com">
      <VhostLink Condition="4xx">helloworld.com</VhostLink>
    </Vhost>
 
-   // 원본 서버에서 403,404 또는 5 xx에 응답 할 때 요청을 example.  com에게 위임한다.
+   // 원본 서버에서 403,404 또는 5 xx에 응답 할 때 요청을 example.com에게 위임한다.
    <Vhost Name="helloworld.com">
      <VhostLink Condition="403,404,5xx">example.com</VhostLink>
    </Vhost>

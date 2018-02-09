@@ -19,9 +19,7 @@
 
    <TrafficCap Session="0">0</TrafficCap>
 
--  ``<TrafficCap> (기본: 0 Mbps)``
-    의 가상 호스트의 최대 Bandwidth를 Mbps 단위로 설정한다. 0으로 설정하면 Bandwidth를 제한하지 않는다.
-   ``Session (기본: 0 Kbps)`` 속성은 클라이언트 세션 당 보낼 수있는 최대의 Bandwidth를 설정한다.
+-  ``<TrafficCap> (기본: 0 Mbps)`` 의 가상 호스트의 최대 Bandwidth를 Mbps 단위로 설정한다. 0으로 설정하면 Bandwidth를 제한하지 않는다. ``Session (기본: 0 Kbps)`` 속성은 클라이언트 세션 당 보낼 수있는 최대의 Bandwidth를 설정한다.
 
 예를 들어, ``<TrafficCap>`` 50 (Mbps)로 설정 한 경우 50Mbps NIC를 설치 한 것과 같은 효과를 낸다. 가상 호스트에 액세스하는 모든 클라이언트 Bandwidth 총 50Mbps를 초과 할 수 없다.
 
@@ -156,7 +154,7 @@ QueryString 환경 설정
     # 10 초의 데이터를 속도 제한없이 전송 한 후 1.3Mbps (1mbps X 130 %)에서 클라이언트로 전송한다.
     http://www.winesoft.co.kr/video/sample.wmv?myboost=10&mybandwidth=1&myratio=130
 
-반드시 모든 매개 변수를 지정할 필요는 없다.::
+반드시 모든 매개 변수를 지정할 필요는 없다. ::
 
     http://www.winesoft.co.kr/video/sample.wmv?myratio=150
 

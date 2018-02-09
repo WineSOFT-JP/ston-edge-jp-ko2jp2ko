@@ -420,8 +420,7 @@ example.com:8080/account/dir   example.com:8080
 
 .. note::
 
-   소스 서버에 example.com/account/dir 있도록 경로가 붙어있는 경우 요청 된 URL은 원래 서버의 주소의 경로 뒤에 붙는다.
-클라이언트가 /img.jpg을 요청하면 최종 주소는 example.com/account/dir/img.jpg된다.
+   소스 서버에 example.com/account/dir 있도록 경로가 붙어있는 경우 요청 된 URL은 원래 서버의 주소의 경로 뒤에 붙는다. 클라이언트가 /img.jpg을 요청하면 최종 주소는 example.com/account/dir/img.jpg된다.
 
 
 .. _env-vhost-standbyorigin:

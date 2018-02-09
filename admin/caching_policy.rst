@@ -9,7 +9,7 @@ HTTP 콘텐츠를 구별하는 다양한 규격이 존재한다. 그만큼 Cachi
 
 앞으로 설명되는 설정을 모든 가상 호스트의 기본 설정을 적용하려면 ``<VHostDefault>`` 하위에 설정한다. 반대로, 특정 가상 호스트에만 적용 바르고 싶다면, <Vhost> 태그의 하위로 설정한다.
 
-**Caching-Key**와 콘텐츠를 분리하는 독특한 값이다. 파일 시스템의 파일과 구별되는 고유의 경로 (예 /usr/conf.txt)를 가지는 것과 같은 개념이다. 잘 Caching-Key는 URL과 혼동되기 쉽다. HTTP의 여러 기능에 따라 동일한 URL에도 콘텐츠가 변경 될 수 있습니다.
+**Caching-Key** 와 콘텐츠를 분리하는 독특한 값이다. 파일 시스템의 파일과 구별되는 고유의 경로 (예 /usr/conf.txt)를 가지는 것과 같은 개념이다. 잘 Caching-Key는 URL과 혼동되기 쉽다. HTTP의 여러 기능에 따라 동일한 URL에도 콘텐츠가 변경 될 수 있습니다.
 
 
 .. toctree::
@@ -360,7 +360,7 @@ QueryString- 예외 조건 / svc / {가상 호스트 이름} /querystring.txt로
 
    -  ``ON`` 매개 변수 URL뿐만 아니라 URL의 QueryString 존재하는 모든 콘텐츠를 대상으로 지정한다.
 
-``Collective`` 속성이 ON이며, 파일이 많을수록 ::ref:`api-cmd-purge` API 실행 CPU 부하가 높아진다. 관련 파일을 검색하는 시간이 길어질 수 있습니다 예기치 않은 문제가 발생할 수있다. 가급적 QueryString까지 붙은 명확한 URL을 :ref:`api-cmd-purge` API를 호출하는 것이 좋습니다.
+``Collective`` 속성이 ON이며, 파일이 많을수록 :ref:`api-cmd-purge` API 실행 CPU 부하가 높아진다. 관련 파일을 검색하는 시간이 길어질 수 있습니다 예기치 않은 문제가 발생할 수있다. 가급적 QueryString까지 붙은 명확한 URL을 :ref:`api-cmd-purge` API를 호출하는 것이 좋습니다.
 
 
 

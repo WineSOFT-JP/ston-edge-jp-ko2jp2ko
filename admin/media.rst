@@ -6,7 +6,7 @@
 .. note::
 
    - `[동영상 강좌]하자! STON Edge Server - Chapter 4. 실시간 이미지 처리 <https://youtu.be/Pdfe-HbtXVs?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
-   - `[동영상 강좌]하자! STON Edge Server - Chapter 5 동영상 전달 <https://youtu.be/YjOEVamhah4?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
+   - `[동영상 강좌]하자! STON Edge Server - Chapter 5. 동영상 전달 <https://youtu.be/YjOEVamhah4?list=PLqvIfHb2IlKeZ-Eym_UPsp6hbpeF-a2gE>`_
 
 이 장에서는 미디어를 스마트하게 서비스하는 방법을 설명한다. 클라이언트 환경과 서비스의 다양 화와 콘텐츠를 다양한 형태로 가공하는 경우가 많다. 때문에 동일한 콘텐츠를 다양한 형태로 원래 서버에 존재하게된다. 이 방법은 처리 시간과 저장 공간의 낭비로 이어질뿐만 아니라 관리가 어렵다.
 
@@ -399,7 +399,7 @@ DIMS (Dynamic Image Management System)는 원래의 이미지를 다양한 형�
 
        - ``The original file was not successfully downloaded.`` 원래 이미지를 완전히 다운로드 수 없었다.
        - ``The original file size is too large.`` 원래 이미지의 크기가 ``MaxSourceSize`` 이상 변환하지 않았다.
-       - ``The original file loading failed.`` 원래 이미지 데이터를로드하지 않았다
+       - ``The original file loading failed.`` 원래 이미지 데이터를로드하지 않았다.
        - ``Image converting failed or invalid DIMS command.`` 잘못된 명령 또는 지원되지 않는 이미지 등이 원인으로 변환하지 않았다.
 
      - ``redirect`` 원본 이미지의 주소에 302 Redirect한다.

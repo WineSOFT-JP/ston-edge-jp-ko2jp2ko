@@ -110,8 +110,7 @@ Info 로그는 전역 설정 (server.xml)로 설정한다. ::
 
    <InfoLog Type="size" Unit="1" Retention="5">ON</InfoLog>
 
--  ``<InfoLog> (기본: ON, Type: size, Unit: 1)``
-   STON 동작 및 설정 변경에 대해 기록한다.
+-  ``<InfoLog> (기본: ON, Type: size, Unit: 1)`` STON 동작 및 설정 변경에 대해 기록한다.
 
 
 .. _admin-log-deny:
@@ -200,7 +199,7 @@ OriginError 로그는 전역 설정 (server.xml)로 설정한다. ::
 SysLog 전송
 ====================================
 
-`syslog <http://en.wikipedia.org/wiki/Syslog>`_ プ프로토콜을 사용하여 로그를 UDP로 실시간 전송한다. 모든 로그를 syslog에 전송되도록 설정할 수있다. ::
+`syslog <http://en.wikipedia.org/wiki/Syslog>`_ 프로토콜을 사용하여 로그를 UDP로 실시간 전송한다. 모든 로그를 syslog에 전송되도록 설정할 수있다. ::
 
    # server.xml - <Server><Cache>
 
@@ -385,7 +384,7 @@ Access 로그 형식을 사용자 정의 로그로 설정한다. ::
     192.168.0.88 192.168.0.12 6276 id=ston; ui.js example.com HTTP "STON" GET 80 "GET /ui.js HTTP/1.1" 200 2014-04-03 21:21:54 1 X 233 63276 1 2571982 TCP_MISS HTTP/1.1
     192.168.0.88 192.168.0.12 626 id=winesoft; hls.m4u8 example.com HTTP "STON" GET 80 "GET /hls.m4u8 HTTP/1.1" 200 2014-04-03 21:21:54 2 X 124 6312333276 2 2571983 TCP_REFRESH_HIT HTTP/1.1
 
-`Apache 로그 형식 <https://httpd.apache.org/docs/2.2/ko/mod/mod_log_config.html>`_ 을 기반으로 개발 된 일부 확장 필드가 있습니다. 각 필드의 구분자는 제한이 없습니다 Space를 사용하는 경우 User-Agent처럼 Space가 포함되어있는 필드는 큰 따옴표 ( "...")로 묶어 설정합니다.
+`Apache 로그 형식 <https://httpd.apache.org/docs/2.2/ko/mod/mod_log_config.html>`_ 을 기반으로 개발 된 일부 확장 필드가 있습니다. 각 필드의 구분자는 제한이 없습니다 Space를 사용하는 경우 User-Agent처럼 Space가 포함되어있는 필드는 큰 따옴표 ("...")로 묶어 설정합니다.
 
 -  ``%...a`` 클라이언트의 IP ::
 
@@ -565,7 +564,7 @@ Origin 로그
 -  ``cs-requestsize (단위: Bytes)`` 소스 서버로 전송되는 HTTP 요청 헤더 크기
 -  ``sc-responsesize (단위: Bytes)`` 소스 서버가 응답 HTTP 헤더의 크기
 -  ``sc-bytes (단위: Bytes)`` 받은 콘텐츠 크기 (헤더 제외)
--  ``time-taken (단위: ms)`` HTTP 트랜잭션이 완료 될 때까지 걸린 총 시간. 세션의 재사용이없는 경우는 소켓 연결 시간까지 포함한다.。
+-  ``time-taken (단위: ms)`` HTTP 트랜잭션이 완료 될 때까지 걸린 총 시간. 세션의 재사용이없는 경우는 소켓 연결 시간까지 포함한다.
 -  ``time-dns (단위: ms)`` DNS 쿼리에 걸린 시간
 -  ``time-connect (단위: ms)`` 원래의 서버와 소켓 Established까지 걸린 시간
 -  ``time-firstbyte (단위: ms)`` 요청을 보내고 응답이 올 때까지 걸린 시간
@@ -763,7 +762,7 @@ FTP 클라이언트는 전역 설정 (server.xml)로 설정한다. ::
 
    - ``Transfer`` 로그 전송 시간을 지정한다. ``Type`` 속성에 따라 값의 형식이 달라진다.
 
-     - ``Rotate (기본)`` 롤링되면 즉시 전송한다. 값을 가지지 않는다.
+     - ``Rotate (기본)`` 롤링되면 바로 전송한다. 값을 가지지 않는다.
      - ``Static`` 하루에 한 번 지정된 시간에 전송한다. 예를 들어 04:00으로 설정한다면 오전 4시 전송을 시작한다.
      - ``Interval`` 일정 시간 간격으로 전송한다. 예를 들어, 4로 설정하면 4 시간 간격으로 로그를 전송합니다.
 

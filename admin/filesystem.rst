@@ -127,7 +127,7 @@ File System은 첫 번째 경로에서이 문제를 해결한다. 예를 들어,
 파일의 속성
 ====================================
 
-대부분 File I / O의 첫 번째 단계는 파일의 속성을 취득하는 것이다. 파일을 open하기 전에 파일의 정보를 얻는 것은 당연한 순서이다. Kernel이 파일의 속성을 서비스하는 과정을 STON의 관점에서 보면 다음과 같다. (/ cachefs은 Mount 경로이므로 Kernel을 생략한다.)
+대부분 File I / O의 첫 번째 단계는 파일의 속성을 취득하는 것이다. 파일을 open하기 전에 파일의 정보를 얻는 것은 당연한 순서이다. Kernel이 파일의 속성을 서비스하는 과정을 STON의 관점에서 보면 다음과 같다. (/cachefs은 Mount 경로이므로 Kernel을 생략한다.)
 
 .. figure:: img/conf_fs4.png
    :align: center
@@ -190,7 +190,7 @@ HTTP의 경우는 다음과 같이 URL을 사용하여 원본 파일을 동적�
 
 이러한 QueryString 방식은 HTTP와 File System의 두 호출 사양을 동일하게 사용할 수있다. ::
 
-    # "/video.mp4의 0~60 초 구간을 Trimming 한"로컬 파일에 액세스한다.。
+    # "/video.mp4의 0~60 초 구간을 Trimming 한"로컬 파일에 액세스한다.
     /cachefs/www.example.com/video.mp4?start=0&end=60
 
 그러나 MP4HLS와 DIMS 있도록 할 URL 뒤에 가공 옵션을 디렉토리 형식으로 지정하는 방법은 File I / O 문제가있다. ::
@@ -198,7 +198,7 @@ HTTP의 경우는 다음과 같이 URL을 사용하여 원본 파일을 동적�
     /cachefs/image.winesoft.com/img.jpg/12AB/resize/500x500/
     /cachefs/www.winesoft.com/video.mp4/mp4hls/index.m3u8
 
-"파일의 속성을 검색"에서 설명한 바와 같이, LINUX는 경로의 각 부분의 특성을 매번 물어 본다. STON 관점에서는 현재 요청 경로 뒤에 추가 경로가 있음을 알 수 없기 때문에 가공되지 않은 파일을 서비스하게된다.
+"파일의 속성을 취득"에서 설명한 바와 같이, LINUX는 경로의 각 부분의 특성을 매번 물어 본다. STON 관점에서는 현재 요청 경로 뒤에 추가 경로가 있음을 알 수 없기 때문에 가공되지 않은 파일을 서비스하게된다.
 
 이 문제를 극복하기 위해 STON 다른 구분 기호로 ``<FileSystem>`` 의 ``Separator (기본: ^)`` 속성을 사용한다. ::
 

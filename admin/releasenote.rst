@@ -1589,7 +1589,7 @@ v1.1.x
    - 원본 서버가 도메인 이름에 설정되어있을 때 기능 개선
 
      | Resolving 결과가 즉시 반영거야.
-     | P들에게 개별적으로 제거 / 회복.
+     | IP들에게 개별적으로 제거 / 회복.
 
    - Purge / Expire / HardPurge / ExpireAfter 호출의 결과 응답 코드 수정
 
